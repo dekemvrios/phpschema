@@ -1,49 +1,41 @@
 # README
 
-## What is PhpMagic
-PhpMagic is a simple php class property validation engine.
+## What is PhpSchema
+PhpSchema is a simple php schema object definition used in active record operations.
 
 ## How To Install?
 This package was designed to be installed with composer dependency management tool.
 
 ```
-composer require solis/phpmagic
+composer require solis/phpschema
 ``` 
 
 ## How To Use it?
-First, you need to define a schema, representing the properties and its expected types/formats. 
+First, you need to define a schema, representing the properties and its expected properties. 
 
 ```
-$schema = [
-    [
-        'name'     => 'iCode',  
-        'property' => 'code',
-        'type'     => Types::TYPE_INT,
-    ],
-    [
-        'name'     => 'sFirstName'
-        'property' => 'firstName',
-        'type'     => Types::TYPE_STRING,
-        'format'   => [
-            'uppercase', 
-            'size' => 15
-        ]
-    ]
-];
+{
+"properties": [
+    {
+      "alias": "sNome",
+      "property": "nome",
+      "type": "string"
+    },
+    {
+      "alias": "iCodigoIbge",
+      "property": "codigoIbge",
+      "type": "int"
+    }
+  ]
+}    
 ```
 
-Require it with composer, instantiate a Validator class and validate a value for a property defined in the schema
+Require it with composer, instantiate a Schema class and using the json schema as argument
 
 ```
-use Solis\PhpMagic\Classes\Validator;
+Solis\PhpSchema\Classes\Schema;
 
-try {
-
-  $value = Validator::make($schema)->validate('firstName', 'Individuo');
-
-} catch(\InvalidArgumentException $exception){
-  $exception->getMessage();  
-}
+$schema = Schema::make(
+    file_get_contents("/path/to/schema.json")
+);
 ```
-
-It validates and returns the value as especified in the schema, throwing a exception if the value is invalid.
