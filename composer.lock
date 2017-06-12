@@ -1,0 +1,77 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "7057b0fcb04017f7dda2ade15755e768",
+    "content-hash": "5e61ac0f2588985c2754b46a212811f2",
+    "packages": [
+        {
+            "name": "solis/phpbreaker",
+            "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/realfabecker/phpbreaker.git",
+                "reference": "f022908fa6d8906f0c8faa1031fdf49efb7f6f79"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/realfabecker/phpbreaker/zipball/f022908fa6d8906f0c8faa1031fdf49efb7f6f79",
+                "reference": "f022908fa6d8906f0c8faa1031fdf49efb7f6f79",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Solis\\Breaker\\": "app/src/lib/breaker"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "PhpBreaker is a exception handling toolset",
+            "time": "2017-05-05 14:12:38"
+        },
+        {
+            "name": "solis/phpmagic",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/realfabecker/phpmagic.git",
+                "reference": "6ccbb70a28809aa4097bebbb86c421a6395f01eb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/realfabecker/phpmagic/zipball/6ccbb70a28809aa4097bebbb86c421a6395f01eb",
+                "reference": "6ccbb70a28809aa4097bebbb86c421a6395f01eb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0",
+                "solis/phpbreaker": "0.0.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Solis\\PhpMagic\\": "app/src",
+                    "Solis\\PhpMagic\\Sample\\": "sample"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+",
+                "LGPL-3.0+"
+            ],
+            "time": "2017-05-31 17:23:57"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=7.0"
+    },
+    "platform-dev": []
+}

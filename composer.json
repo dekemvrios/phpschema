@@ -1,0 +1,18 @@
+{
+  "name": "solis/phpschema",
+  "license": [
+    "GPL-3.0+",
+    "LGPL-3.0+"
+  ],
+  "require": {
+    "php": ">=7.0",
+    "solis/phpbreaker": "0.0.1",
+    "solis/phpmagic": "2.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Solis\\PhpSchema\\": "app/src",
+      "Solis\\PhpSchema\\Sample\\": "sample/"
+    }
+  }
+}
