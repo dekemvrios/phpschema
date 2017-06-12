@@ -1,9 +1,7 @@
 {
   "database": {
     "table": "tbcidade",
-    "primaryKeys": [
-      "nome"
-    ]
+    "primaryKeys": "nome"
   },
   "properties": [
     {

@@ -9,11 +9,9 @@ error_reporting(E_ALL);
 
 try {
 
-    $instance = Cidade::make(
-        []
-    );
+    $instance = new Cidade();
 
-    var_dump($instance);
+    echo $instance->schema->toJson();
 
 } catch (TException $exception) {
     echo $exception->toJson();

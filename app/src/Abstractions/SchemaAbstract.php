@@ -151,20 +151,7 @@ abstract class SchemaAbstract implements SchemaContract
             }
         }
         if (!empty($this->getDatabase())) {
-            $array['database'] = [
-                'table' => $this->getDatabase()->getTable()
-            ];
-            if (!empty($this->getDatabase()->getFields())) {
-                $array['database']['fields'] = [];
-                foreach ($this->getDatabase()->getFields() as $field) {
-                    if (method_exists(
-                        $field,
-                        'toArray'
-                    )) {
-                        $array['database']['fields'][] = $field->toArray();
-                    }
-                }
-            }
+            $array['database'] = $this->getDatabase()->toArray();
         }
         return $array;
     }

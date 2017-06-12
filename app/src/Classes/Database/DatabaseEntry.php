@@ -41,7 +41,21 @@ class DatabaseEntry extends DatabaseEntryAbstract
             );
         }
 
-        $instance = new self($database['table']);
+        if (!array_key_exists(
+            'primaryKeys',
+            $database
+        )
+        ) {
+            throw new TException(
+                __CLASS__,
+                __METHOD__,
+                "'primaryKeys' field has not been found for defining database schema entry ",
+                400
+            );
+        }
+        $primaryKeys = $database['primaryKeys'];
+
+        $instance = new self($database['table'], $primaryKeys);
 
         if (array_key_exists(
             'fields',

@@ -4,7 +4,6 @@ namespace Solis\PhpSchema\Sample\Classes;
 
 use Solis\PhpSchema\Contracts\SchemaContract;
 use Solis\PhpSchema\Classes\Schema;
-use Solis\PhpMagic\Helpers\Magic;
 use Solis\Breaker\TException;
 
 /**
@@ -14,27 +13,15 @@ use Solis\Breaker\TException;
  */
 class Cidade
 {
-    use Magic;
-
     /**
      * @var SchemaContract
      */
-    protected $schema;
-
-    /**
-     * @var string
-     */
-    protected $nome;
-
-    /**
-     * @var string
-     */
-    protected $codigoIbge;
+    public $schema;
 
     /**
      * __construct
      */
-    protected function __construct()
+    public function __construct()
     {
 
         if (!file_exists(dirname(dirname(__FILE__)) . "/Schemas/Cidade.json")) {
@@ -49,22 +36,5 @@ class Cidade
         $this->schema = Schema::make(
             file_get_contents(dirname(dirname(__FILE__)) . "/Schemas/Cidade.json")
         );
-
-        echo $this->schema->toJson();
-
-        exit();
-    }
-
-    /**
-     * @param $dados
-     *
-     * @return static
-     */
-    public static function make($dados)
-    {
-        $instance = new static();
-        $instance->attach($dados);
-
-        return $instance;
     }
 }

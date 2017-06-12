@@ -6,8 +6,7 @@
   ],
   "require": {
     "php": ">=7.0",
-    "solis/phpbreaker": "0.0.1",
-    "solis/phpmagic": "2.0.0"
+    "solis/phpbreaker": "0.0.1"
   },
   "autoload": {
     "psr-4": {

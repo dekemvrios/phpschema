@@ -17,6 +17,11 @@ abstract class DatabaseEntryAbstract
     protected $table;
 
     /**
+     * @var array
+     */
+    protected $primaryKeys;
+
+    /**
      * @var FieldEntryAbstract[]
      */
     protected $fields = [];
@@ -24,11 +29,13 @@ abstract class DatabaseEntryAbstract
     /**
      * DatabaseEntryAbstract constructor.
      *
-     * @param string $table
+     * @param string       $table
+     * @param string|array $primaryKeys
      */
-    protected function __construct($table)
+    protected function __construct($table, $primaryKeys)
     {
         $this->setTable($table);
+        $this->setPrimaryKeys(!is_array($primaryKeys) ? [$primaryKeys] : $primaryKeys);
     }
 
     /**
@@ -69,6 +76,22 @@ abstract class DatabaseEntryAbstract
     public function addField($field)
     {
         $this->fields[] = $field;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPrimaryKeys()
+    {
+        return $this->primaryKeys;
+    }
+
+    /**
+     * @param array $primaryKeys
+     */
+    public function setPrimaryKeys($primaryKeys)
+    {
+        $this->primaryKeys = $primaryKeys;
     }
 
     /**
@@ -120,6 +143,7 @@ abstract class DatabaseEntryAbstract
         $array = [];
 
         $array['table'] = $this->getTable();
+        $array['primaryKeys'] = $this->getPrimaryKeys();
         if (!empty($this->getFields())) {
             $array['fields'] = [];
             foreach ($this->getFields() as $field) {
