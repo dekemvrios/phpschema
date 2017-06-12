@@ -15,6 +15,9 @@ First, you need to define a schema, representing the properties and its expected
 
 ```
 {
+"database": {
+    "table": "tbcidade"    
+},
 "properties": [
     {
       "alias": "sNome",
