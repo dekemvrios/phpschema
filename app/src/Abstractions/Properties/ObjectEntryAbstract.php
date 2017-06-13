@@ -2,6 +2,8 @@
 
 namespace Solis\PhpSchema\Abstractions\Properties;
 
+use Solis\PhpSchema\Abstractions\Database\RelationshipEntryAbstract;
+
 /**
  * Class ObjectEntryAbstract
  *
@@ -15,7 +17,7 @@ abstract class ObjectEntryAbstract
     protected $class;
 
     /**
-     * @var string
+     * @var RelationshipEntryAbstract
      */
     protected $relationship;
 
@@ -47,7 +49,7 @@ abstract class ObjectEntryAbstract
     }
 
     /**
-     * @return string
+     * @return RelationshipEntryAbstract
      */
     public function getRelationship()
     {
@@ -55,7 +57,7 @@ abstract class ObjectEntryAbstract
     }
 
     /**
-     * @param string $relationship
+     * @param RelationshipEntryAbstract $relationship
      */
     public function setRelationship($relationship)
     {
@@ -74,7 +76,7 @@ abstract class ObjectEntryAbstract
         ];
 
         if (!empty($this->getRelationship())) {
-            $array['relationship'] = $this->getRelationship();
+            $array['relationship'] = $this->getRelationship()->toArray();
         }
 
         return $array;

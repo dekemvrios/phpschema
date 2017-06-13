@@ -3,6 +3,7 @@
 namespace Solis\PhpSchema\Classes\Properties;
 
 use Solis\PhpSchema\Abstractions\Properties\ObjectEntryAbstract;
+use Solis\PhpSchema\Classes\Database\RelationshipEntry;
 use Solis\Breaker\TException;
 
 /**
@@ -66,7 +67,7 @@ class ObjectEntry extends ObjectEntryAbstract
             'relationship',
             $class
         )) {
-            $instance->setRelationship($class['relationship']);
+            $instance->setRelationship(RelationshipEntry::make($class['relationship']));
         }
 
         return $instance;

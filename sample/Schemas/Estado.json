@@ -29,7 +29,17 @@
       "type": "undefined",
       "object": {
         "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
-        "relationship": "belongsTo"
+        "relationship": {
+          "type": "belongsTo",
+          "source": {
+            "field": "cidade",
+            "refers": "cidcodigo"
+          },
+          "sharedFields": [
+            "empcodigo",
+            "filcodigo"
+          ]
+        }
       }
     },
     {
@@ -38,7 +48,13 @@
       "type": "undefined",
       "object": {
         "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
-        "relationship": "belongsTo"
+        "relationship": {
+          "type": "belongsTo",
+          "source": {
+            "field": "cidade",
+            "refers": "cidcodigo"
+          }
+        }
       }
     }
   ]
