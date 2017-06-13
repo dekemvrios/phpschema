@@ -2,8 +2,10 @@
 
 namespace Solis\PhpSchema\Classes\Database;
 
-use Solis\Breaker\TException;
+use Solis\PhpSchema\Abstractions\Properties\PropertyEntryAbstract;
 use Solis\PhpSchema\Abstractions\Database\FieldEntryAbstract;
+use Solis\PhpSchema\Util\Relationships;
+use Solis\Breaker\TException;
 
 /**
  * Class SourceEntry
@@ -16,42 +18,27 @@ class FieldEntry extends FieldEntryAbstract
     /**
      * make
      *
-     * @param array $dados
+     * @param PropertyEntryAbstract $property
      *
-     * @return FieldEntry
+     * @return FieldEntry|boolean
      * @throws TException
      */
-    public static function make($dados)
+    public static function make($property)
     {
-        if (!array_key_exists(
-            'property',
-            $dados
-        )
-        ) {
-            throw new TException(
-                __CLASS__,
-                __METHOD__,
-                "field 'property' not found in database source entry schema",
-                400
-            );
-        }
-
-        if (!array_key_exists(
-            'column',
-            $dados
-        )
-        ) {
-            throw new TException(
-                __CLASS__,
-                __METHOD__,
-                "field 'column' not found in database source entry schema",
-                400
-            );
-        }
-
-        return new self(
-            $dados['property'],
-            $dados['column']
+        $instance = new self(
+            $property->getProperty(),
+            $property->getProperty()
         );
+
+        if (!empty($property->getObject()) && !empty($property->getObject()->getRelationship())) {
+            $meta = Relationships::getMeta($property->getObject()->getRelationship());
+            if ($meta['createColumn'] === false) {
+                return false;
+            }
+
+            $instance->setObject($property->getObject());
+        }
+
+        return $instance;
     }
 }

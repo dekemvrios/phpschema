@@ -73,14 +73,13 @@ class DatabaseEntry extends DatabaseEntryAbstract
                 $property->getProperty()
             );
             if (empty($meta)) {
-                $instance->addField(
-                    FieldEntry::make(
-                        [
-                            "property" => $property->getProperty(),
-                            "column"   => $property->getProperty()
-                        ]
-                    )
-                );
+
+                $fieldEntry = FieldEntry::make($property);
+                if(!empty($fieldEntry)){
+                    $instance->addField(
+                        FieldEntry::make($fieldEntry)
+                    );
+                }
             }
         }
 

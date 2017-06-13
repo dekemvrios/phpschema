@@ -2,6 +2,8 @@
 
 namespace Solis\PhpSchema\Abstractions\Database;
 
+use Solis\PhpSchema\Abstractions\Properties\ObjectEntryAbstract;
+
 /**
  * Class SourceEntryAbstract
  *
@@ -18,6 +20,11 @@ abstract class FieldEntryAbstract
      * @var string
      */
     protected $column;
+
+    /**
+     * @var ObjectEntryAbstract
+     */
+    protected $object;
 
     /**
      * __construct
@@ -66,13 +73,35 @@ abstract class FieldEntryAbstract
     }
 
     /**
+     * @return ObjectEntryAbstract
+     */
+    public function getObject()
+    {
+        return $this->object;
+    }
+
+    /**
+     * @param ObjectEntryAbstract $object
+     */
+    public function setObject($object)
+    {
+        $this->object = $object;
+    }
+
+    /**
      * @return array
      */
     public function toArray()
     {
-        return [
+        $array = [
             'column'   => $this->getColumn(),
             'property' => $this->getProperty()
         ];
+
+        if (!empty($this->getObject())) {
+            $array['object'] = $this->getObject()->toArray();
+        }
+
+        return $array;
     }
 }
