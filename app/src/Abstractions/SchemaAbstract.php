@@ -125,7 +125,7 @@ abstract class SchemaAbstract implements SchemaContract
             return false;
         }
 
-        return count($entry) > 1 ? $entry : $entry[0];
+        return count($entry) > 1 ? $entry : array_values($entry)[0];
     }
 
     /**

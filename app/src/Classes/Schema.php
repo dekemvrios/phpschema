@@ -58,7 +58,7 @@ class Schema extends SchemaAbstract
             );
         }
 
-        if (!array_key_exists(
+        if (array_key_exists(
             'database',
             $schema
         )
