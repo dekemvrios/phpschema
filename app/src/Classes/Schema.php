@@ -51,29 +51,23 @@ class Schema extends SchemaAbstract
         }
         $propertiesEntry = $schema['properties'];
 
-        if (!array_key_exists(
-            'database',
-            $schema
-        )
-        ) {
-            throw new TException(
-                __CLASS__,
-                __METHOD__,
-                "'database' field has not been found for defining schema entry",
-                500
-            );
-        }
-        $databaseEntry = $schema['database'];
-
         $instance = new self();
         foreach ($propertiesEntry as $item) {
             $instance->addPropertyEntry(
                 PropertyEntry::make($item)
             );
         }
-        $instance->setDatabase(
-            DatabaseEntry::make($databaseEntry, $instance->getProperties())
-        );
+
+        if (!array_key_exists(
+            'database',
+            $schema
+        )
+        ) {
+            $databaseEntry = $schema['database'];
+            $instance->setDatabase(
+                DatabaseEntry::make($databaseEntry, $instance->getProperties())
+            );
+        }
 
         return $instance;
     }
