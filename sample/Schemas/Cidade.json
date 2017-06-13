@@ -1,23 +1,19 @@
 {
-  "database": {
-    "table": "tbcidade",
-    "primaryKeys": "nome"
-  },
   "properties": [
     {
       "alias": "sNome",
-      "property": "nome",
       "type": "string",
+      "property": "nome",
       "format": [
         {
-          "function": "uppercase"
+          "function": "lowercase"
         }
       ]
     },
     {
       "alias": "iCodigoIbge",
-      "property": "codigoIbge",
-      "type": "int"
+      "type": "int",
+      "property": "codigoIbge"
     }
   ]
 }

@@ -7,17 +7,16 @@ use Solis\PhpSchema\Classes\Schema;
 use Solis\Breaker\TException;
 
 /**
- * Class Cidade
+ * Class Estado
  *
- * @package Sample\Pessoas
+ * @package Solis\PhpMagic\Sample\Schema\Classes
  */
-class Cidade
+class Estado
 {
-
     /**
      * @var SchemaContract
      */
-    protected $schema;
+    public $schema;
 
     /**
      * @var string
@@ -30,12 +29,23 @@ class Cidade
     protected $codigoIbge;
 
     /**
+     * @var string
+     */
+    protected $cidade;
+
+    /**
+     * @var string
+     */
+    protected $capital;
+
+    /**
      * __construct
+     *
      */
     public function __construct()
     {
 
-        if (!file_exists(dirname(dirname(__FILE__)) . "/Schemas/Cidade.json")) {
+        if (!file_exists(dirname(dirname(__FILE__)) . "/Schemas/Estado.json")) {
             throw new TException(
                 __CLASS__,
                 __METHOD__,
@@ -45,12 +55,9 @@ class Cidade
         }
 
         $this->schema = Schema::make(
-            file_get_contents(dirname(dirname(__FILE__)) . "/Schemas/Cidade.json")
+            file_get_contents(dirname(dirname(__FILE__)) . "/Schemas/Estado.json")
         );
     }
 
-    public static function make()
-    {
-
-    }
+    public static function make(){}
 }

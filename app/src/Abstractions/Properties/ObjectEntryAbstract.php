@@ -15,6 +15,11 @@ abstract class ObjectEntryAbstract
     protected $class;
 
     /**
+     * @var string
+     */
+    protected $relationship;
+
+    /**
      * __construct
      *
      * @param string $class
@@ -42,6 +47,22 @@ abstract class ObjectEntryAbstract
     }
 
     /**
+     * @return string
+     */
+    public function getRelationship()
+    {
+        return $this->relationship;
+    }
+
+    /**
+     * @param string $relationship
+     */
+    public function setRelationship($relationship)
+    {
+        $this->relationship = $relationship;
+    }
+
+    /**
      * toArray
      *
      * @return array
@@ -51,6 +72,10 @@ abstract class ObjectEntryAbstract
         $array = [
             'class' => $this->getClass()
         ];
+
+        if (!empty($this->getRelationship())) {
+            $array['relationship'] = $this->getRelationship();
+        }
 
         return $array;
     }

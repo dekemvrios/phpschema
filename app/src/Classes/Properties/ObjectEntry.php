@@ -62,6 +62,13 @@ class ObjectEntry extends ObjectEntryAbstract
             $class['class']
         );
 
+        if (array_key_exists(
+            'relationship',
+            $class
+        )) {
+            $instance->setRelationship($class['relationship']);
+        }
+
         return $instance;
     }
 }
