@@ -11,7 +11,9 @@ try {
 
     $instance = new Cidade();
 
-    echo $instance->schema->toJson();
+    //echo $instance->schema->toJson();
+
+    var_dump($instance->schema->getDatabaseColumnsAsList());
 
 } catch (TException $exception) {
     echo $exception->toJson();

@@ -129,6 +129,81 @@ abstract class SchemaAbstract implements SchemaContract
     }
 
     /**
+     * getPropertyValueAsList
+     *
+     * @param string $property
+     *
+     * @return array|bool
+     * @throws TException
+     */
+    public function getPropertyValueAsList($property)
+    {
+        if (empty($this->getProperties())) {
+            throw new TException(
+                __CLASS__,
+                __METHOD__,
+                "'properties' entry has not been defined",
+                500
+            );
+        }
+
+        $method = 'get' . ucfirst($property);
+        if(!method_exists('Solis\PhpSchema\Abstractions\Properties\PropertyEntryAbstract', $method)){
+            throw new TException(
+                __CLASS__,
+                __METHOD__,
+                "method {$method} has not been defined at SolisPhpSchema\\Abstractions\\Properties\\PropertyEntryAbstract class",
+                500
+            );
+        }
+
+        $list = array_map(function ($item) use ($method){
+            $value = $item->{$method}();
+            if(!empty($value)){
+                return $value;
+            }
+        }, $this->getProperties());
+
+        if(empty($list)){
+            return false;
+        }
+
+        return $list;
+    }
+
+    /**
+     * getDatabaseColumnsAsList
+     *
+     *
+     * @return array|bool
+     * @throws TException
+     */
+    public function getDatabaseColumnsAsList()
+    {
+        if (empty($this->getDatabase())) {
+            throw new TException(
+                __CLASS__,
+                __METHOD__,
+                "'database' entry has not been defined",
+                500
+            );
+        }
+
+        $list = array_map(function ($item){
+            $value = $item->getColumn();
+            if(!empty($value)){
+                return $value;
+            }
+        }, $this->getDatabase()->getFields());
+
+        if(empty($list)){
+            return false;
+        }
+
+        return $list;
+    }
+
+    /**
      * toArray
      *
      * @param array $properties
