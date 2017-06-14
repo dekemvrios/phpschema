@@ -136,6 +136,24 @@ abstract class DatabaseEntryAbstract
     }
 
     /**
+     * @param string $type
+     *
+     * @return array|bool
+     */
+    public function getByRelationshipType($type)
+    {
+        $array = array_filter($this->getFields(), function (FieldEntryAbstract $item) use ($type) {
+                if (!empty($item->getObject()) && !empty($item->getObject()->getRelationship())) {
+                    if ($item->getObject()->getRelationship()->getType() === $type) {
+                        return true;
+                    }
+                }
+            }
+        );
+        return !empty($array) ? $array : false;
+    }
+
+    /**
      * @return array
      */
     public function toArray()

@@ -30,7 +30,7 @@
       "object": {
         "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
         "relationship": {
-          "type": "belongsTo",
+          "type": "hasOne",
           "source": {
             "field": "cidade",
             "refers": "cidcodigo"
@@ -49,7 +49,7 @@
       "object": {
         "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
         "relationship": {
-          "type": "belongsTo",
+          "type": "hasMany",
           "source": {
             "field": "cidade",
             "refers": "cidcodigo"
