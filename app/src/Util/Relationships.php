@@ -15,7 +15,7 @@ final class Relationships
      */
     private static $relationships = [
         [
-            "name"          => "belongsTo",
+            "name"          => "hasOne",
             "createColumn" => true,
         ],
         [
