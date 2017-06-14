@@ -18,6 +18,10 @@ final class Relationships
             "name"          => "belongsTo",
             "createColumn" => true,
         ],
+        [
+            "name"          => "hasMany",
+            "createColumn" => false,
+        ],
     ];
 
     /**
