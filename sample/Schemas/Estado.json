@@ -8,6 +8,9 @@
       "alias": "sNome",
       "property": "nome",
       "type": "string",
+      "behavior": {
+        "required": "false"
+      },
       "format": [
         {
           "function": "uppercase"

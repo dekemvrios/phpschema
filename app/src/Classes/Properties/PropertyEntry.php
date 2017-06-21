@@ -85,6 +85,8 @@ class PropertyEntry extends PropertyEntryAbstract
             $instance->setObject(ObjectEntry::make($dados['object']));
         }
 
+        $instance->setBehavior(BehaviorEntry::make($dados));
+
         return $instance;
     }
 }
