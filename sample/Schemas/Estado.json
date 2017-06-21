@@ -9,7 +9,25 @@
       "property": "nome",
       "type": "string",
       "behavior": {
-        "required": "false"
+        "required": "false",
+        "actions": {
+          "whenInsert": {
+            "before": [
+              {
+                "class": "",
+                "function": "",
+                "params" : ""
+              }
+            ],
+            "after" : [
+              {
+                "class": "",
+                "function": "",
+                "params" : ""
+              }
+            ]
+          }
+        }
       },
       "format": [
         {
