@@ -74,12 +74,15 @@
     {
       "alias": "iCodigoIbge",
       "property": "codigoIbge",
-      "type": "int"
+      "type": "int",
+      "behavior": {
+        "autoIncrement": "true"
+      }
     },
     {
       "alias": "aCidade",
       "property": "cidade",
-      "type": "undefined",
+      "type": "custom",
       "object": {
         "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
         "relationship": {
@@ -98,7 +101,7 @@
     {
       "alias": "aCapital",
       "property": "capital",
-      "type": "undefined",
+      "type": "custom",
       "object": {
         "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
         "relationship": {
