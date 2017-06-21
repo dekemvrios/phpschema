@@ -35,13 +35,6 @@ class BehaviorEntry extends BehaviorEntryAbstract
             )) {
                 $isRequired = $dados['behavior']['required'] === 'true' ? true : false;
             }
-
-            if (array_key_exists(
-                'actions',
-                $dados['behavior']
-            )) {
-                $instance->setActions(ActionsEntry::make($dados['behavior']['actions']));
-            }
         }
 
         $instance->setRequired($isRequired);

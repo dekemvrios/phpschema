@@ -1,7 +1,57 @@
 {
   "database": {
     "table": "tbestado",
-    "primaryKeys": "codigoIbge"
+    "primaryKeys": "codigoIbge",
+    "actions": {
+      "whenInsert": {
+        "before": [
+          {
+            "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
+            "function": "make",
+            "params": "beforeInsert"
+          }
+        ],
+        "after": [
+          {
+            "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
+            "function": "make",
+            "params": "afterInsert"
+          }
+        ]
+      },
+      "whenUpdate": {
+        "before": [
+          {
+            "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
+            "function": "make",
+            "params": "beforeUpdate"
+          }
+        ],
+        "after": [
+          {
+            "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
+            "function": "make",
+            "params": "afterUpdate"
+          }
+        ]
+      },
+      "whenDelete": {
+        "before": [
+          {
+            "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
+            "function": "make",
+            "params": "beforeDelete"
+          }
+        ],
+        "after": [
+          {
+            "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
+            "function": "make",
+            "params": "afterDelete"
+          }
+        ]
+      }
+    }
   },
   "properties": [
     {
@@ -9,57 +59,7 @@
       "property": "nome",
       "type": "string",
       "behavior": {
-        "required": "false",
-        "actions": {
-          "whenInsert": {
-            "before": [
-              {
-                "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
-                "function": "make",
-                "params" : "beforeInsert"
-              }
-            ],
-            "after" : [
-              {
-                "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
-                "function": "make",
-                "params" : "afterInsert"
-              }
-            ]
-          },
-          "whenUpdate": {
-            "before": [
-              {
-                "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
-                "function": "make",
-                "params" : "beforeUpdate"
-              }
-            ],
-            "after" : [
-              {
-                "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
-                "function": "make",
-                "params" : "afterUpdate"
-              }
-            ]
-          },
-          "whenDelete": {
-            "before": [
-              {
-                "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
-                "function": "make",
-                "params" : "beforeDelete"
-              }
-            ],
-            "after" : [
-              {
-                "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
-                "function": "make",
-                "params" : "afterDelete"
-              }
-            ]
-          }
-        }
+        "required": "false"
       },
       "format": [
         {
