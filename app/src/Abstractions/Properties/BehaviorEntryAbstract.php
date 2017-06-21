@@ -16,6 +16,11 @@ abstract class BehaviorEntryAbstract
     protected $required;
 
     /**
+     * @var ActionsEntryAbstract
+     */
+    protected $actions;
+
+    /**
      * @return bool
      */
     public function isRequired()
@@ -32,12 +37,33 @@ abstract class BehaviorEntryAbstract
     }
 
     /**
+     * @return ActionsEntryAbstract
+     */
+    public function getActions()
+    {
+        return $this->actions;
+    }
+
+    /**
+     * @param ActionsEntryAbstract $actions
+     */
+    public function setActions($actions)
+    {
+        $this->actions = $actions;
+    }
+
+    /**
      * toArray
      */
     public function toArray()
     {
-        return [
+        $array = [
             'required' => $this->isRequired()
         ];
+
+        if (!empty($this->getActions())) {
+            $array['actions'] = $this->getActions()->toArray();
+        }
+        return $array;
     }
 }

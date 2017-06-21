@@ -14,16 +14,21 @@
           "whenInsert": {
             "before": [
               {
-                "class": "",
-                "function": "",
-                "params" : ""
+                "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
+                "function": "make",
+                "params" : "before"
               }
             ],
             "after" : [
               {
-                "class": "",
-                "function": "",
-                "params" : ""
+                "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
+                "function": "make",
+                "params" : "after"
+              },
+              {
+                "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
+                "function": "make",
+                "params" : "after"
               }
             ]
           }
