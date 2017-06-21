@@ -21,6 +21,11 @@ abstract class ActionsEntryAbstract
     protected $whenUpdate;
 
     /**
+     * @var WhenDeleteActionEntryAbstract
+     */
+    protected $whenDelete;
+
+    /**
      * @return WhenInsertActionEntryAbstract
      */
     public function getWhenInsert()
@@ -53,6 +58,22 @@ abstract class ActionsEntryAbstract
     }
 
     /**
+     * @return WhenDeleteActionEntryAbstract
+     */
+    public function getWhenDelete()
+    {
+        return $this->whenDelete;
+    }
+
+    /**
+     * @param WhenDeleteActionEntryAbstract $whenDelete
+     */
+    public function setWhenDelete($whenDelete)
+    {
+        $this->whenDelete = $whenDelete;
+    }
+
+    /**
      * @return array
      */
     public function toArray()
@@ -65,6 +86,10 @@ abstract class ActionsEntryAbstract
 
         if (!empty($this->getWhenUpdate())) {
             $array['whenUpdate'] = $this->getWhenUpdate()->toArray();
+        }
+
+        if (!empty($this->getWhenDelete())) {
+            $array['whenDelete'] = $this->getWhenDelete()->toArray();
         }
 
         return $array;

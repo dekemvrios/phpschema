@@ -3,6 +3,7 @@
 namespace Solis\PhpSchema\Classes\Properties;
 
 use Solis\PhpSchema\Abstractions\Properties\ActionsEntryAbstract;
+use Solis\PhpSchema\Abstractions\Properties\WhenDeleteActionEntryAbstract;
 
 /**
  * Class ActionsEntry
@@ -33,6 +34,13 @@ class ActionsEntry extends ActionsEntryAbstract
             $actions
         )) {
             $instance->setWhenUpdate(WhenUpdateActionEntry::make($actions['whenUpdate']));
+        }
+
+        if (array_key_exists(
+            'whenDelete',
+            $actions
+        )) {
+            $instance->setWhenDelete(WhenDeleteActionEntry::make($actions['whenDelete']));
         }
 
         return $instance;

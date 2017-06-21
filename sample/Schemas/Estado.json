@@ -42,6 +42,22 @@
                 "params" : "afterUpdate"
               }
             ]
+          },
+          "whenDelete": {
+            "before": [
+              {
+                "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
+                "function": "make",
+                "params" : "beforeDelete"
+              }
+            ],
+            "after" : [
+              {
+                "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
+                "function": "make",
+                "params" : "afterDelete"
+              }
+            ]
           }
         }
       },
