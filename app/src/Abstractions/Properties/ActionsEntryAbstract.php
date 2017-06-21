@@ -16,6 +16,11 @@ abstract class ActionsEntryAbstract
     protected $whenInsert;
 
     /**
+     * @var WhenUpdateActionEntryAbstract
+     */
+    protected $whenUpdate;
+
+    /**
      * @return WhenInsertActionEntryAbstract
      */
     public function getWhenInsert()
@@ -32,6 +37,22 @@ abstract class ActionsEntryAbstract
     }
 
     /**
+     * @return WhenUpdateActionEntryAbstract
+     */
+    public function getWhenUpdate()
+    {
+        return $this->whenUpdate;
+    }
+
+    /**
+     * @param WhenUpdateActionEntryAbstract $whenUpdate
+     */
+    public function setWhenUpdate($whenUpdate)
+    {
+        $this->whenUpdate = $whenUpdate;
+    }
+
+    /**
      * @return array
      */
     public function toArray()
@@ -40,6 +61,10 @@ abstract class ActionsEntryAbstract
 
         if (!empty($this->getWhenInsert())) {
             $array['whenInsert'] = $this->getWhenInsert()->toArray();
+        }
+
+        if (!empty($this->getWhenUpdate())) {
+            $array['whenUpdate'] = $this->getWhenUpdate()->toArray();
         }
 
         return $array;

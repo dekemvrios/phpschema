@@ -16,19 +16,30 @@
               {
                 "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
                 "function": "make",
-                "params" : "before"
+                "params" : "beforeInsert"
               }
             ],
             "after" : [
               {
                 "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
                 "function": "make",
-                "params" : "after"
-              },
+                "params" : "afterInsert"
+              }
+            ]
+          },
+          "whenUpdate": {
+            "before": [
               {
                 "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
                 "function": "make",
-                "params" : "after"
+                "params" : "beforeUpdate"
+              }
+            ],
+            "after" : [
+              {
+                "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
+                "function": "make",
+                "params" : "afterUpdate"
               }
             ]
           }

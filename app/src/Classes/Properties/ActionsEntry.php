@@ -28,6 +28,13 @@ class ActionsEntry extends ActionsEntryAbstract
             $instance->setWhenInsert(WhenInsertActionEntry::make($actions['whenInsert']));
         }
 
+        if (array_key_exists(
+            'whenUpdate',
+            $actions
+        )) {
+            $instance->setWhenUpdate(WhenUpdateActionEntry::make($actions['whenUpdate']));
+        }
+
         return $instance;
     }
 }
