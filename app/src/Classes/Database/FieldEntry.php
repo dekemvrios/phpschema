@@ -39,6 +39,8 @@ class FieldEntry extends FieldEntryAbstract
             $instance->setObject($property->getObject());
         }
 
+        $instance->setBehavior($property->getBehavior());
+
         return $instance;
     }
 }
