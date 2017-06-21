@@ -3,6 +3,7 @@
 namespace Solis\PhpSchema\Abstractions\Database;
 
 use Solis\Breaker\TException;
+use Solis\PhpSchema\Abstractions\Properties\ActionsEntryAbstract;
 
 /**
  * Class DatabaseEntryAbstract
@@ -20,6 +21,11 @@ abstract class DatabaseEntryAbstract
      * @var array
      */
     protected $primaryKeys;
+
+    /**
+     * @var ActionsEntryAbstract
+     */
+    protected $actions;
 
     /**
      * @var FieldEntryAbstract[]
@@ -76,6 +82,22 @@ abstract class DatabaseEntryAbstract
     public function addField($field)
     {
         $this->fields[] = $field;
+    }
+
+    /**
+     * @return ActionsEntryAbstract
+     */
+    public function getActions()
+    {
+        return $this->actions;
+    }
+
+    /**
+     * @param ActionsEntryAbstract $actions
+     */
+    public function setActions($actions)
+    {
+        $this->actions = $actions;
     }
 
     /**
@@ -162,6 +184,11 @@ abstract class DatabaseEntryAbstract
 
         $array['table'] = $this->getTable();
         $array['primaryKeys'] = $this->getPrimaryKeys();
+
+        if (!empty($this->getActions())) {
+            $array['actions'] = $this->getActions()->toArray();
+        }
+
         if (!empty($this->getFields())) {
             $array['fields'] = [];
             foreach ($this->getFields() as $field) {

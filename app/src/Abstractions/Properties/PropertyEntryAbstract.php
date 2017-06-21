@@ -25,6 +25,11 @@ abstract class PropertyEntryAbstract
     protected $type;
 
     /**
+     * @var BehaviorEntryAbstract
+     */
+    protected $behavior;
+
+    /**
      * @var FormatEntryAbstract[]
      */
     protected $format;
@@ -100,6 +105,22 @@ abstract class PropertyEntryAbstract
     }
 
     /**
+     * @return BehaviorEntryAbstract
+     */
+    public function getBehavior()
+    {
+        return $this->behavior;
+    }
+
+    /**
+     * @param BehaviorEntryAbstract $behavior
+     */
+    public function setBehavior($behavior)
+    {
+        $this->behavior = $behavior;
+    }
+
+    /**
      * @return FormatEntryAbstract[]
      */
     public function getFormat()
@@ -152,14 +173,21 @@ abstract class PropertyEntryAbstract
     {
         $array = [];
         foreach ($properties as $property) {
-            if (method_exists($this, 'get' . ucfirst($property))) {
+            if (method_exists(
+                $this,
+                'get' . ucfirst($property)
+            )) {
                 $value = $this->{'get' . ucfirst($property)}();
                 if (is_object($value)) {
-                    $value = method_exists($value, 'toArray') ? $value->toArray() : null;
+                    $value = method_exists(
+                        $value,
+                        'toArray'
+                    ) ? $value->toArray() : null;
                 }
                 $array[$property] = !empty($value) ? $value : 'not defined';
             }
         }
+
         return $array;
     }
 
@@ -176,6 +204,8 @@ abstract class PropertyEntryAbstract
         if (!empty($this->getType())) {
             $array['type'] = $this->getType();
         }
+
+        $array['behavior'] = $this->getBehavior()->toArray();
 
         if (!empty($this->getFormat())) {
             $format = [];

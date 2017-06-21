@@ -4,6 +4,7 @@ namespace Solis\PhpSchema\Classes\Database;
 
 use Solis\PhpSchema\Abstractions\Database\DatabaseEntryAbstract;
 use Solis\PhpSchema\Abstractions\Properties\PropertyEntryAbstract;
+use Solis\PhpSchema\Classes\Properties\ActionsEntry;
 use Solis\Breaker\TException;
 
 /**
@@ -55,7 +56,10 @@ class DatabaseEntry extends DatabaseEntryAbstract
         }
         $primaryKeys = $database['primaryKeys'];
 
-        $instance = new self($database['table'], $primaryKeys);
+        $instance = new self(
+            $database['table'],
+            $primaryKeys
+        );
 
         if (array_key_exists(
             'fields',
@@ -75,12 +79,19 @@ class DatabaseEntry extends DatabaseEntryAbstract
             if (empty($meta)) {
 
                 $fieldEntry = FieldEntry::make($property);
-                if(!empty($fieldEntry)){
+                if (!empty($fieldEntry)) {
                     $instance->addField(
-                        FieldEntry::make($fieldEntry)
+                        $fieldEntry
                     );
                 }
             }
+        }
+
+        if (array_key_exists(
+            'actions',
+            $database
+        )) {
+            $instance->setActions(ActionsEntry::make($database['actions']));
         }
 
         return $instance;

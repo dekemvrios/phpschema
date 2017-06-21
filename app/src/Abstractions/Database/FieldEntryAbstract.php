@@ -2,6 +2,7 @@
 
 namespace Solis\PhpSchema\Abstractions\Database;
 
+use Solis\PhpSchema\Abstractions\Properties\BehaviorEntryAbstract;
 use Solis\PhpSchema\Abstractions\Properties\ObjectEntryAbstract;
 
 /**
@@ -20,6 +21,11 @@ abstract class FieldEntryAbstract
      * @var string
      */
     protected $column;
+
+    /**
+     * @var BehaviorEntryAbstract
+     */
+    protected $behavior;
 
     /**
      * @var ObjectEntryAbstract
@@ -89,6 +95,22 @@ abstract class FieldEntryAbstract
     }
 
     /**
+     * @return BehaviorEntryAbstract
+     */
+    public function getBehavior()
+    {
+        return $this->behavior;
+    }
+
+    /**
+     * @param BehaviorEntryAbstract $behavior
+     */
+    public function setBehavior($behavior)
+    {
+        $this->behavior = $behavior;
+    }
+
+    /**
      * @return array
      */
     public function toArray()
@@ -97,6 +119,10 @@ abstract class FieldEntryAbstract
             'column'   => $this->getColumn(),
             'property' => $this->getProperty()
         ];
+
+        if (!empty($this->getBehavior())) {
+            $array['behavior'] = $this->getBehavior()->toArray();
+        }
 
         if (!empty($this->getObject())) {
             $array['object'] = $this->getObject()->toArray();
