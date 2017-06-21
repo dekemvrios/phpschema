@@ -16,6 +16,11 @@ abstract class BehaviorEntryAbstract
     protected $required;
 
     /**
+     * @var boolean
+     */
+    protected $autoIncrement;
+
+    /**
      * @return bool
      */
     public function isRequired()
@@ -32,13 +37,31 @@ abstract class BehaviorEntryAbstract
     }
 
     /**
+     * @return bool
+     */
+    public function isAutoIncrement()
+    {
+        return $this->autoIncrement;
+    }
+
+    /**
+     * @param bool $autoIncrement
+     */
+    public function setAutoIncrement($autoIncrement)
+    {
+        $this->autoIncrement = $autoIncrement;
+    }
+
+    /**
      * toArray
      */
     public function toArray()
     {
         $array = [
-            'required' => $this->isRequired()
+            'required'      => $this->isRequired(),
+            'autoIncrement' => $this->isAutoIncrement()
         ];
+
         return $array;
     }
 }

@@ -25,6 +25,8 @@ class BehaviorEntry extends BehaviorEntryAbstract
 
         $isRequired = true;
 
+        $autoIncrement = false;
+
         if (array_key_exists(
             'behavior',
             $dados
@@ -35,9 +37,17 @@ class BehaviorEntry extends BehaviorEntryAbstract
             )) {
                 $isRequired = $dados['behavior']['required'] === 'true' ? true : false;
             }
+
+            if (array_key_exists(
+                'autoIncrement',
+                $dados['behavior']
+            )) {
+                $autoIncrement = $dados['behavior']['autoIncrement'] === 'true' ? true : false;
+            }
         }
 
         $instance->setRequired($isRequired);
+        $instance->setAutoIncrement($autoIncrement);
 
         return $instance;
     }
