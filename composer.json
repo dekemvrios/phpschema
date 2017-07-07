@@ -1,5 +1,6 @@
 {
   "name": "solis/phpschema",
+  "description": "PhpSchema is library used by Solis\\Expressive as default ORM Schema",
   "license": [
     "GPL-3.0+",
     "LGPL-3.0+"
