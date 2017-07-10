@@ -4,32 +4,43 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fd7015118816be945987985407d8bf58",
-    "content-hash": "600efbe5bf5012791dd198cba066ae5f",
+    "hash": "fdb0244fdc2e74762039f76b1d601bd4",
+    "content-hash": "1fa9208db5d05dcec1997b79810ea609",
     "packages": [
         {
             "name": "solis/phpbreaker",
-            "version": "0.0.1",
+            "version": "0.0.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/realfabecker/phpbreaker.git",
-                "reference": "f022908fa6d8906f0c8faa1031fdf49efb7f6f79"
+                "url": "https://github.com/rafaelbeecker/phpbreaker.git",
+                "reference": "5b0d45fe2df0706081235bbdfce2260bb5080a22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/realfabecker/phpbreaker/zipball/f022908fa6d8906f0c8faa1031fdf49efb7f6f79",
-                "reference": "f022908fa6d8906f0c8faa1031fdf49efb7f6f79",
+                "url": "https://api.github.com/repos/rafaelbeecker/phpbreaker/zipball/5b0d45fe2df0706081235bbdfce2260bb5080a22",
+                "reference": "5b0d45fe2df0706081235bbdfce2260bb5080a22",
                 "shasum": ""
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Solis\\Breaker\\": "app/src/lib/breaker"
+                    "Solis\\Breaker\\": "app/src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "description": "PhpBreaker is a exception handling toolset",
-            "time": "2017-05-05 14:12:38"
+            "license": [
+                "GPL-3.0+",
+                "LGPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Rafael Becker",
+                    "email": "rafael@beecker.com.br",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PhpBreaker is a exception handling toolkit",
+            "time": "2017-07-08 22:07:28"
         }
     ],
     "packages-dev": [],
