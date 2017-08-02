@@ -23,8 +23,6 @@ $schema = Schema::make(
 ```
 
 A string será validada e retornará um objeto válido em caso de sucesso. Qualquer valor inválido irá disparar uma instancia SchemaException
-qual implementa a interface TExceptionAbstract
-
 
 ## Change log
 
