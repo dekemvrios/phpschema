@@ -3,11 +3,11 @@
 namespace Solis\Expressive\Schema\Contracts\Entries\Behavior;
 
 /**
- * Interface RequiredContract
+ * Interface GenericContract
  *
  * @package Solis\Expressive\Schema\Contracts\Entries\Behavior
  */
-interface RequiredContract
+interface GenericContract
 {
 
     /**

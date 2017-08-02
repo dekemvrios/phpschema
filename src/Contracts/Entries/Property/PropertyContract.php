@@ -2,6 +2,7 @@
 
 namespace Solis\Expressive\Schema\Contracts\Entries\Property;
 
+use Solis\Expressive\Schema\Contracts\Entries\Behavior\GenericContract;
 use Solis\Expressive\Schema\Contracts\Entries\Composition\CompositionContract;
 use Solis\Expressive\Schema\Contracts\Entries\DynamicFunction\DynamicFunctionContract;
 
@@ -66,4 +67,13 @@ interface PropertyContract
      * @return CompositionContract
      */
     public function getComposition();
+
+    /**
+     * getBehavior
+     *
+     * Retorna as especificações do comportamento da propriedade do registro
+     *
+     * @return GenericContract
+     */
+    public function getBehavior();
 }

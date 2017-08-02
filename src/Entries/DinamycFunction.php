@@ -10,7 +10,7 @@ use Solis\Breaker\TException;
  *
  * @package Solis\Expressive\Schema\Entries
  */
-class DinamyFunction implements DynamicFunctionContract
+class DinamycFunction implements DynamicFunctionContract
 {
 
     /**
@@ -161,5 +161,28 @@ class DinamyFunction implements DynamicFunctionContract
     public function getParams()
     {
         return $this->params;
+    }
+
+    /**
+     * toArray
+     *
+     * Retorna representação em array do registro
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        $array = [];
+        $array['function'] = $this->getFunction();
+
+        if (!empty($this->getClass())) {
+            $array['class'] = $this->getClass();
+        }
+
+        if (!empty($this->getParams())) {
+            $array['params'] = $this->getParams();
+        }
+
+        return $array;
     }
 }

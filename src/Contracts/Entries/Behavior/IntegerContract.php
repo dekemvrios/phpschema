@@ -20,11 +20,11 @@ interface IntegerContract
     public function isAutoIncrement();
 
     /**
-     * incrementalBehavior
+     * getIncrementalBehavior
      *
      * Retorna o comportamento incremental do respectivo campo
      *
      * @return string
      */
-    public function incrementalBehavior();
+    public function getIncrementalBehavior();
 }

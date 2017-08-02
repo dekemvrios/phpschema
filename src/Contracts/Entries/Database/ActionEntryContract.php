@@ -19,7 +19,7 @@ interface ActionEntryContract
      *
      * @return DynamicFunctionContract[]
      */
-    public function before();
+    public function getBefore();
 
     /**
      * after
@@ -28,5 +28,5 @@ interface ActionEntryContract
      *
      * @return DynamicFunctionContract[]
      */
-    public function after();
+    public function getAfter();
 }
