@@ -1,12 +1,9 @@
 <?php
 
-namespace Solis\PhpSchema\Sample\Classes;
+namespace Solis\Expressive\Schema\Sample;
 
 use Solis\Expressive\Schema\Contracts\SchemaContract;
 use Solis\Expressive\Schema\Schema;
-
-//use Solis\PhpSchema\Contracts\SchemaContract;
-//use Solis\PhpSchema\Classes\Schema;
 use Solis\Breaker\TException;
 
 /**
@@ -60,5 +57,9 @@ class Estado
         $this->schema = Schema::make(
             file_get_contents(dirname(dirname(__FILE__)) . "/Schemas/Estado.json")
         );
+    }
+
+    public static function make()
+    {
     }
 }

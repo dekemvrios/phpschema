@@ -8,7 +8,7 @@ use Solis\Expressive\Schema\Contracts\Entries\DynamicFunction\DynamicFunctionCon
 use Solis\Expressive\Schema\Contracts\Entries\Property\PropertyContract;
 use Solis\Expressive\Schema\Entries\Composition\Composition;
 use Solis\Expressive\Schema\Entries\Behavior\Behavior;
-use Solis\Breaker\TException;
+use Solis\Expressive\Schema\SchemaException;
 
 /**
  * Class Property
@@ -76,7 +76,7 @@ class Property implements PropertyContract
      * @param array $dados
      *
      * @return static
-     * @throws TException
+     * @throws SchemaException
      */
     public static function make($dados)
     {
@@ -85,7 +85,7 @@ class Property implements PropertyContract
             $dados
         )
         ) {
-            throw new TException(
+            throw new SchemaException(
                 __CLASS__,
                 __METHOD__,
                 "'property' field has not been found for defining schema entry",
@@ -98,7 +98,7 @@ class Property implements PropertyContract
             $dados
         )
         ) {
-            throw new TException(
+            throw new SchemaException(
                 __CLASS__,
                 __METHOD__,
                 "'alias' field has not been found for defining schema entry ",
@@ -111,7 +111,7 @@ class Property implements PropertyContract
             $dados
         )
         ) {
-            throw new TException(
+            throw new SchemaException(
                 __CLASS__,
                 __METHOD__,
                 "'type' field has not been found for defining schema entry ",

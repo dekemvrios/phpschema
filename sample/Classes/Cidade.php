@@ -1,9 +1,9 @@
 <?php
 
-namespace Solis\PhpSchema\Sample\Classes;
+namespace Solis\Expressive\Schema\Sample;
 
-use Solis\PhpSchema\Contracts\SchemaContract;
-use Solis\PhpSchema\Classes\Schema;
+use Solis\Expressive\Schema\Contracts\SchemaContract;
+use Solis\Expressive\Schema\Schema;
 use Solis\Breaker\TException;
 
 /**
@@ -51,6 +51,5 @@ class Cidade
 
     public static function make()
     {
-
     }
 }

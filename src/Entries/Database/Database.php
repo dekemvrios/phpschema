@@ -4,7 +4,7 @@ namespace Solis\Expressive\Schema\Entries\Database;
 
 use Solis\Expressive\Schema\Contracts\Entries\Database\DatabaseContract;
 use Solis\Expressive\Schema\Contracts\Entries\Database\ActionContract;
-use Solis\Breaker\TException;
+use Solis\Expressive\Schema\SchemaException;
 
 /**
  * Class Database
@@ -47,7 +47,7 @@ class Database implements DatabaseContract
      *
      * @param array $database
      *
-     * @throws TException
+     * @throws SchemaException
      *
      * @return self
      */
@@ -59,7 +59,7 @@ class Database implements DatabaseContract
             $database
         )
         ) {
-            throw new TException(
+            throw new SchemaException(
                 __CLASS__,
                 __METHOD__,
                 "'repository' field has not been found for defining database schema entry ",
@@ -72,7 +72,7 @@ class Database implements DatabaseContract
             $database
         )
         ) {
-            throw new TException(
+            throw new SchemaException(
                 __CLASS__,
                 __METHOD__,
                 "'keys' field has not been found for defining database schema entry ",

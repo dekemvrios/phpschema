@@ -3,7 +3,7 @@
 namespace Solis\Expressive\Schema\Entries;
 
 use Solis\Expressive\Schema\Contracts\Entries\DynamicFunction\DynamicFunctionContract;
-use Solis\Breaker\TException;
+use Solis\Expressive\Schema\SchemaException;
 
 /**
  * Class DinamyFunction
@@ -44,7 +44,7 @@ class DinamycFunction implements DynamicFunctionContract
      * @param array $format
      *
      * @return self
-     * @throws TException
+     * @throws SchemaException
      */
     public static function make($format)
     {
@@ -53,7 +53,7 @@ class DinamycFunction implements DynamicFunctionContract
             $format
         )
         ) {
-            throw new TException(
+            throw new SchemaException(
                 __CLASS__,
                 __METHOD__,
                 "'function' field has not been found for defining 'format' schema entry ",
@@ -67,7 +67,7 @@ class DinamycFunction implements DynamicFunctionContract
             $format
         )) {
             if (!class_exists($format['class'])) {
-                throw new TException(
+                throw new SchemaException(
                     __CLASS__,
                     __METHOD__,
                     "class {$format['class']} has not been defined",
@@ -80,7 +80,7 @@ class DinamycFunction implements DynamicFunctionContract
                 $format['function']
             )
             ) {
-                throw new TException(
+                throw new SchemaException(
                     __CLASS__,
                     __METHOD__,
                     "function {$format['function']} has not been defined in class {$format['class']}",

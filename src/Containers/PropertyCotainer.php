@@ -5,7 +5,7 @@ namespace Solis\Expressive\Schema\Containers;
 use Solis\Expressive\Schema\Contracts\Entries\Property\ContainerContract as PropertyContainerContract;
 use Solis\Expressive\Schema\Contracts\Entries\Property\PropertyContract;
 use Solis\Expressive\Schema\Entries\Property;
-use Solis\Breaker\TException;
+use Solis\Expressive\Schema\SchemaException;
 
 /**
  * Class PropertyCotainer
@@ -25,7 +25,7 @@ class PropertyCotainer implements PropertyContainerContract
      * @param array $properties
      *
      * @return static
-     * @throws TException
+     * @throws SchemaException
      */
     public static function make($properties)
     {

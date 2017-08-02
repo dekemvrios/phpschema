@@ -3,7 +3,7 @@
 namespace Solis\Expressive\Schema\Entries\Composition;
 
 use Solis\Expressive\Schema\Contracts\Entries\Composition\SourceContract;
-use Solis\Breaker\TException;
+use Solis\Expressive\Schema\SchemaException;
 
 /**
  * Class Source
@@ -41,7 +41,7 @@ class Source implements SourceContract
      *
      * @return static
      *
-     * @throws TException
+     * @throws SchemaException
      */
     public static function make($dados)
     {
@@ -51,7 +51,7 @@ class Source implements SourceContract
             $dados
         )
         ) {
-            throw new TException(
+            throw new SchemaException(
                 __CLASS__,
                 __METHOD__,
                 "schema entry 'field' has not been found to set source schema",
@@ -64,7 +64,7 @@ class Source implements SourceContract
             $dados
         )
         ) {
-            throw new TException(
+            throw new SchemaException(
                 __CLASS__,
                 __METHOD__,
                 "schema entry 'refers' has not been found to set source schema",

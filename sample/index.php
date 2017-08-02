@@ -2,14 +2,14 @@
 
 require_once '../vendor/autoload.php';
 
-use Solis\PhpSchema\Sample\Classes\Estado;
-use Solis\Breaker\TException;
+use Solis\Expressive\Schema\Sample\Estado;
+use Solis\Breaker\Abstractions\TExceptionAbstract;
 
 try {
 
     $instance = new Estado();
 
     echo $instance->schema->toJson();
-} catch (TException $exception) {
+} catch (TExceptionAbstract $exception) {
     echo $exception->toJson();
 }

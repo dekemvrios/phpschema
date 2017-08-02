@@ -7,7 +7,6 @@ use Solis\Expressive\Schema\Containers\PropertyCotainer;
 use Solis\Expressive\Schema\Contracts\Entries\Property\ContainerContract as PropertyContainerContract;
 use Solis\Expressive\Schema\Contracts\Entries\Database\ContainerContract as DatabaseContainerContract;
 use Solis\Expressive\Schema\Contracts\SchemaContract;
-use Solis\Breaker\TException;
 
 /**
  * Class Schema
@@ -43,7 +42,7 @@ class Schema implements SchemaContract
      * @param string $json
      *
      * @return Schema
-     * @throws TException
+     * @throws SchemaException
      */
     public static function make($json)
     {
@@ -52,7 +51,7 @@ class Schema implements SchemaContract
             true
         );
         if (!$schema) {
-            throw new TException(
+            throw new SchemaException(
                 __CLASS__,
                 __METHOD__,
                 "Error decoding json file while creating schema",
@@ -65,7 +64,7 @@ class Schema implements SchemaContract
             $schema
         )
         ) {
-            throw new TException(
+            throw new SchemaException(
                 __CLASS__,
                 __METHOD__,
                 "'properties' field has not been found for defining schema entry",

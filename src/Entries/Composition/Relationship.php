@@ -4,7 +4,7 @@ namespace Solis\Expressive\Schema\Entries\Composition;
 
 use Solis\Expressive\Schema\Contracts\Entries\Composition\RelationshipContract;
 use Solis\Expressive\Schema\Contracts\Entries\Composition\SourceContract;
-use Solis\Breaker\TException;
+use Solis\Expressive\Schema\SchemaException;
 
 /**
  * Class Relationship
@@ -48,7 +48,7 @@ class Relationship implements RelationshipContract
      *
      * @return static
      *
-     * @throws TException
+     * @throws SchemaException
      */
     public static function make($dados)
     {
@@ -57,7 +57,7 @@ class Relationship implements RelationshipContract
             $dados
         )
         ) {
-            throw new TException(
+            throw new SchemaException(
                 __CLASS__,
                 __METHOD__,
                 "schema entry 'type' has not been found to set relationship schema",
@@ -70,7 +70,7 @@ class Relationship implements RelationshipContract
             $dados
         )
         ) {
-            throw new TException(
+            throw new SchemaException(
                 __CLASS__,
                 __METHOD__,
                 "schema entry 'source' has not been found to set relationship schema",

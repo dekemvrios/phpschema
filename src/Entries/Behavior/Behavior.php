@@ -2,7 +2,6 @@
 
 namespace Solis\Expressive\Schema\Entries\Behavior;
 
-use Solis\Breaker\TException;
 use Solis\Expressive\Schema\Contracts\Entries\Behavior\GenericContract;
 
 /**
@@ -19,8 +18,6 @@ class Behavior
      * @param array $dados
      *
      * @return GenericContract
-     *
-     * @throws TException
      */
     public static function make($dados)
     {

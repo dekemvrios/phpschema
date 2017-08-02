@@ -4,7 +4,7 @@ namespace Solis\Expressive\Schema\Entries\Composition;
 
 use Solis\Expressive\Schema\Contracts\Entries\Composition\CompositionContract;
 use Solis\Expressive\Schema\Contracts\Entries\Composition\RelationshipContract;
-use Solis\Breaker\TException;
+use Solis\Expressive\Schema\SchemaException;
 
 /**
  * Class Composition
@@ -40,7 +40,7 @@ class Composition implements CompositionContract
      * @param $class
      *
      * @return static
-     * @throws TException
+     * @throws SchemaException
      */
     public static function make($class)
     {
@@ -49,7 +49,7 @@ class Composition implements CompositionContract
             $class
         )
         ) {
-            throw new TException(
+            throw new SchemaException(
                 __CLASS__,
                 __METHOD__,
                 "'class' field has not been found for defining 'object' schema entry",
@@ -58,7 +58,7 @@ class Composition implements CompositionContract
         }
 
         if (!class_exists($class['class'])) {
-            throw new TException(
+            throw new SchemaException(
                 __CLASS__,
                 __METHOD__,
                 "class {$class['class']} has not been defined",
@@ -71,7 +71,7 @@ class Composition implements CompositionContract
             'make'
         )
         ) {
-            throw new TException(
+            throw new SchemaException(
                 __CLASS__,
                 __METHOD__,
                 "a 'class' defined in the 'object' schema entry must have a make method",
