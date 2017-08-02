@@ -327,46 +327,11 @@ class Property implements PropertyContract
     /**
      * toArray
      *
-     * @param array $properties
+     * Retorna uma repsentação em array do schema
      *
      * @return array
      */
-    public function toArray($properties = null)
-    {
-        return empty($properties) ? $this->defaultToArray() : $this->customToArray($properties);
-    }
-
-    /**
-     * @param $properties
-     *
-     * @return array
-     */
-    protected function customToArray($properties)
-    {
-        $array = [];
-        foreach ($properties as $property) {
-            if (method_exists(
-                $this,
-                'get' . ucfirst($property)
-            )) {
-                $value = $this->{'get' . ucfirst($property)}();
-                if (is_object($value)) {
-                    $value = method_exists(
-                        $value,
-                        'toArray'
-                    ) ? $value->toArray() : null;
-                }
-                $array[$property] = !empty($value) ? $value : 'not defined';
-            }
-        }
-
-        return $array;
-    }
-
-    /**
-     * @return array
-     */
-    protected function defaultToArray()
+    public function toArray()
     {
         $array = [];
 

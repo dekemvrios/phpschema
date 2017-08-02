@@ -55,35 +55,34 @@ class Database implements DatabaseContract
         $database
     ) {
         if (!array_key_exists(
-            'table',
+            'repository',
             $database
         )
         ) {
             throw new TException(
                 __CLASS__,
                 __METHOD__,
-                "'table' field has not been found for defining database schema entry ",
+                "'repository' field has not been found for defining database schema entry ",
                 400
             );
         }
 
         if (!array_key_exists(
-            'primaryKeys',
+            'keys',
             $database
         )
         ) {
             throw new TException(
                 __CLASS__,
                 __METHOD__,
-                "'primaryKeys' field has not been found for defining database schema entry ",
+                "'keys' field has not been found for defining database schema entry ",
                 400
             );
         }
-        $primaryKeys = $database['primaryKeys'];
 
         $instance = new self(
-            $database['table'],
-            $primaryKeys
+            $database['repository'],
+            $database['keys']
         );
 
         if (array_key_exists(

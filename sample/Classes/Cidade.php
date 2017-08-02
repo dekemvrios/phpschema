@@ -17,7 +17,7 @@ class Cidade
     /**
      * @var SchemaContract
      */
-    protected $schema;
+    public $schema;
 
     /**
      * @var string

@@ -70,7 +70,7 @@ class GenericBehavior implements GenericContract
     public function toArray()
     {
         return [
-            'isRequired' => $this->isRequired(),
+            'required' => $this->isRequired(),
         ];
     }
 }
