@@ -15,6 +15,42 @@ use Solis\Breaker\TException;
 class Schema implements SchemaContract
 {
     /**
+     * @var PropertyContainerContract
+     */
+    private $propertyContainer;
+
+    /**
+     * @var DatabaseContainerContract
+     */
+    private $databaseContainer;
+
+    /**
+     * Schema constructor.
+     *
+     * @param PropertyContainerContract $propertyContainer
+     * @param DatabaseContainerContract $databaseContainer
+     */
+    protected function __construct(
+        $propertyContainer,
+        $databaseContainer
+    ) {
+        $this->serPropertyContainer($propertyContainer);
+        $this->setDatabaseContainer($databaseContainer);
+    }
+
+    /**
+     * setPropertyContainer
+     *
+     * Atribui o container contendo operações e especificações de propriedades
+     *
+     * @param PropertyContainerContract $propertyContainer
+     */
+    public function serPropertyContainer($propertyContainer)
+    {
+        $this->propertyContainer = $propertyContainer;
+    }
+
+    /**
      * getPropertyContainer
      *
      * Retorna o container contendo operações e especificações de propriedades
@@ -25,12 +61,19 @@ class Schema implements SchemaContract
      */
     public function getPropertyContainer()
     {
-        throw new TException(
-            __CLASS__,
-            __METHOD__,
-            'method has not been implemented yet!',
-            500
-        );
+        return $this->propertyContainer;
+    }
+
+    /**
+     * setDatabaseContainer
+     *
+     * Atribui o container contendo operações e especificações de database
+     *
+     * @param DatabaseContainerContract $databaseContainer
+     */
+    public function setDatabaseContainer($databaseContainer)
+    {
+        $this->databaseContainer = $databaseContainer;
     }
 
     /**
@@ -44,12 +87,7 @@ class Schema implements SchemaContract
      */
     public function getDatabaseContainer()
     {
-        throw new TException(
-            __CLASS__,
-            __METHOD__,
-            'method has not been implemented yet!',
-            500
-        );
+        return $this->databaseContainer;
     }
 
     /**
