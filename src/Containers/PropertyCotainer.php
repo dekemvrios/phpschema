@@ -77,4 +77,26 @@ class PropertyCotainer implements PropertyContainerContract
             $property
         );
     }
+
+    /**
+     * getMeta
+     *
+     * Retorna um array de objetos contendo a relação de propriedades de acordo com o identificador fornecido
+     * como argumento
+     *
+     * @param array|string $properties valor de propriedade a ser buscada na relação schema
+     * @param string       $identifier valor de campo a ter o valor comparado ao valor desejado
+     *
+     * @return array|bool
+     */
+    public function getMeta($properties, $identifier = 'property')
+    {
+        $properties = !is_array($properties) ? [$properties] : $properties;
+
+        $meta = array_filter($this->getProperties(), function (PropertyContract $property) use ($properties, $identifier) {
+            return in_array($property->{'get' . $identifier}(), $properties);
+        });
+
+        return !empty($meta) ? $meta : false;
+    }
 }

@@ -86,7 +86,8 @@ class Schema implements SchemaContract
         ) {
             $instance->setDatabaseContainer(
                 DatabaseContainer::make(
-                    $schema['database']
+                    $schema['database'],
+                    $instance->getPropertyContainer()
                 )
             );
         }

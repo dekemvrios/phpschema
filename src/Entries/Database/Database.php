@@ -2,6 +2,7 @@
 
 namespace Solis\Expressive\Schema\Entries\Database;
 
+use Solis\Expressive\Schema\Contracts\Entries\Property\ContainerContract as PropertyContainerContract;
 use Solis\Expressive\Schema\Contracts\Entries\Database\DatabaseContract;
 use Solis\Expressive\Schema\Contracts\Entries\Database\ActionContract;
 use Solis\Expressive\Schema\SchemaException;
@@ -45,14 +46,16 @@ class Database implements DatabaseContract
     /**
      * make
      *
-     * @param array $database
+     * @param array                     $database
+     * @param PropertyContainerContract $propertyContainer
      *
      * @throws SchemaException
      *
      * @return self
      */
     public static function make(
-        $database
+        $database,
+        $propertyContainer
     ) {
         if (!array_key_exists(
             'repository',
