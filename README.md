@@ -28,12 +28,6 @@ A string será validada e retornará um objeto válido em caso de sucesso. Qualq
 
 Acompanhe o [CHANGELOG](CHANGELOG.md) para informações sobre atualizações recentes.
 
-## Testes
-
-```
-$ composer test
-```
-
 ## Licença
 
 The MIT License (MIT). Verifique [LICENSE](LICENSE.MD) para mais informações.
