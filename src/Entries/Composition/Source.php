@@ -23,6 +23,20 @@ class Source implements SourceContract
     private $refers;
 
     /**
+     * __construct
+     *
+     * @param string $field
+     * @param string $refers
+     */
+    protected function __construct(
+        $field,
+        $refers
+    ) {
+        $this->setField($field);
+        $this->setRefers($refers);
+    }
+
+    /**
      * @param array $dados
      *
      * @return static

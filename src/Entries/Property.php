@@ -8,7 +8,6 @@ use Solis\Expressive\Schema\Contracts\Entries\DynamicFunction\DynamicFunctionCon
 use Solis\Expressive\Schema\Contracts\Entries\Property\PropertyContract;
 use Solis\Expressive\Schema\Entries\Composition\Composition;
 use Solis\Expressive\Schema\Entries\Behavior\Behavior;
-use Solis\Expressive\Schema\Entries\DinamycFunction;
 use Solis\Breaker\TException;
 
 /**
@@ -53,6 +52,23 @@ class Property implements PropertyContract
      * @var GenericContract
      */
     private $behavior;
+
+    /**
+     * __construct
+     *
+     * @param string $alias
+     * @param string $property
+     * @param string $type
+     */
+    protected function __construct(
+        $alias,
+        $property,
+        $type = null
+    ) {
+        $this->setAlias($alias);
+        $this->setProperty($property);
+        $this->setType(!empty($type) ? $type : null);
+    }
 
     /**
      * make
@@ -126,6 +142,13 @@ class Property implements PropertyContract
         )) {
             $instance->setComposition(Composition::make($dados['composition']));
         }
+
+        $instance->setField(
+            array_key_exists(
+                'field',
+                $dados
+            ) ? $dados['field'] : $dados['property']
+        );
 
         $instance->setBehavior(Behavior::make($dados));
 
@@ -349,6 +372,7 @@ class Property implements PropertyContract
 
         $array['alias'] = $this->getAlias();
         $array['property'] = $this->getProperty();
+        $array['field'] = $this->getField();
 
         if (!empty($this->getType())) {
             $array['type'] = $this->getType();

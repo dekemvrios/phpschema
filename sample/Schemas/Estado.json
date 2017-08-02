@@ -83,7 +83,7 @@
       "alias": "aCidade",
       "property": "cidade",
       "type": "custom",
-      "object": {
+      "composition": {
         "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
         "relationship": {
           "type": "hasOne",
@@ -102,7 +102,7 @@
       "alias": "aCapital",
       "property": "capital",
       "type": "custom",
-      "object": {
+      "composition": {
         "class": "Solis\\PhpSchema\\Sample\\Classes\\Cidade",
         "relationship": {
           "type": "hasMany",

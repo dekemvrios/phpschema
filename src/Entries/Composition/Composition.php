@@ -24,6 +24,17 @@ class Composition implements CompositionContract
     private $relationship;
 
     /**
+     * __construct
+     *
+     * @param string $class
+     */
+    protected function __construct(
+        $class
+    ) {
+        $this->setClass($class);
+    }
+
+    /**
      * make
      *
      * @param $class

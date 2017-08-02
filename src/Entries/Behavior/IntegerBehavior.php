@@ -30,7 +30,7 @@ class IntegerBehavior extends GenericBehavior implements IntegerContract
      *
      * @return GenericContract
      */
-    public static function make($dados)
+    public static function make($dados = [])
     {
         $instance = new static();
         $instance->setRequired(

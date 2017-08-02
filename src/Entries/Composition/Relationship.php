@@ -30,6 +30,20 @@ class Relationship implements RelationshipContract
     private $sharedFields;
 
     /**
+     * RelationshipEntryAbstract constructor.
+     *
+     * @param string         $type
+     * @param SourceContract $source
+     */
+    protected function __construct(
+        $type,
+        $source
+    ) {
+        $this->setType($type);
+        $this->setSource($source);
+    }
+
+    /**
      * @param array $dados
      *
      * @return static

@@ -25,25 +25,19 @@ class Behavior
     public static function make($dados)
     {
 
-        if (!array_key_exists(
+        $behavior = array_key_exists(
             'behavior',
             $dados
-        )
-        ) {
-            throw new TException(
-                __CLASS__,
-                __METHOD__,
-                'behavior entry has not been found at json schema',
-                400
-            );
-        }
+        ) ? $dados['behavior'] : [];
 
         switch ($dados['type']) {
             case 'int':
-                return IntegerBehavior::make($dados['behavior']);
+                return IntegerBehavior::make(
+                    $behavior
+                );
 
             default:
-                return GenericBehavior::make($dados['behavior']);
+                return GenericBehavior::make($behavior);
         }
     }
 }

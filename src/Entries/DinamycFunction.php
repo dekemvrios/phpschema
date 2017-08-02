@@ -29,6 +29,16 @@ class DinamycFunction implements DynamicFunctionContract
     private $params;
 
     /**
+     * __construct
+     *
+     * @param $function
+     */
+    protected function __construct($function)
+    {
+        $this->setFunction($function);
+    }
+
+    /**
      * make
      *
      * @param array $format

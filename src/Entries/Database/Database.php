@@ -29,6 +29,20 @@ class Database implements DatabaseContract
     private $actions;
 
     /**
+     * DatabaseEntryAbstract constructor.
+     *
+     * @param string       $table
+     * @param string|array $primaryKeys
+     */
+    protected function __construct(
+        $table,
+        $primaryKeys
+    ) {
+        $this->setRepository($table);
+        $this->setKeys(!is_array($primaryKeys) ? [$primaryKeys] : $primaryKeys);
+    }
+
+    /**
      * make
      *
      * @param array $database
@@ -87,7 +101,7 @@ class Database implements DatabaseContract
      *
      * Atribui Nome da fonte qual está contido os dados do active record a ser manipulado
      *
-     * @param array $repository
+     * @param string $repository
      */
     public function setRepository($repository)
     {
@@ -150,5 +164,26 @@ class Database implements DatabaseContract
     public function getActions()
     {
         return $this->actions;
+    }
+
+    /**
+     * toArray
+     *
+     * Retorna representação em array do registro
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        $array = [];
+
+        $array['table'] = $this->getRepository();
+        $array['primaryKeys'] = $this->getKeys();
+
+        if (!empty($this->getActions())) {
+            $array['actions'] = $this->getActions()->toArray();
+        }
+
+        return $array;
     }
 }

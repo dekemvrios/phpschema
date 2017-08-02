@@ -17,7 +17,7 @@ class PropertyCotainer implements PropertyContainerContract
     /**
      * @var PropertyContract[]
      */
-    private $properties;
+    private $properties = [];
 
     /**
      * make

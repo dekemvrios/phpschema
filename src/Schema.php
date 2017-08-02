@@ -160,12 +160,24 @@ class Schema implements SchemaContract
      */
     public function toArray($properties = null)
     {
-        throw new TException(
-            __CLASS__,
-            __METHOD__,
-            'method has not been implemented yet!',
-            500
-        );
+        $array = [];
+        if (!empty($this->getPropertyContainer())) {
+            $array['properties'] = [];
+
+            foreach ($this->getPropertyContainer()->getProperties() as $item) {
+                if (method_exists(
+                    $item,
+                    'toArray'
+                )) {
+                    $array['properties'][] = $item->toArray(!empty($properties) ? $properties : null);
+                }
+            }
+        }
+        if (!empty($this->getDatabaseContainer())) {
+            $array['database'] = $this->getDatabaseContainer()->getDatabase()->toArray();
+        }
+
+        return $array;
     }
 
     /**
@@ -179,11 +191,11 @@ class Schema implements SchemaContract
      */
     public function toJson()
     {
-        throw new TException(
-            __CLASS__,
-            __METHOD__,
-            'method has not been implemented yet!',
-            500
-        );
+        $json = null;
+        if (!empty($this->toArray())) {
+            $json = json_encode($this->toArray());
+        }
+
+        return $json;
     }
 }
