@@ -29,6 +29,39 @@ class Action implements ActionContract
     protected $whenDelete;
 
     /**
+     * @param $actions
+     *
+     * @return static
+     */
+    public static function make($actions)
+    {
+        $instance = new static();
+
+        if (array_key_exists(
+            'whenInsert',
+            $actions
+        )) {
+            $instance->setWhenInsert(ActionEntry::make($actions['whenInsert']));
+        }
+
+        if (array_key_exists(
+            'whenUpdate',
+            $actions
+        )) {
+            $instance->setWhenUpdate(ActionEntry::make($actions['whenUpdate']));
+        }
+
+        if (array_key_exists(
+            'whenDelete',
+            $actions
+        )) {
+            $instance->setWhenDelete(ActionEntry::make($actions['whenDelete']));
+        }
+
+        return $instance;
+    }
+
+    /**
      * setWhenInsert
      *
      * Atribui a relação de ações a serem executadas no contexto do insert
@@ -98,5 +131,31 @@ class Action implements ActionContract
     public function getWhenDelete()
     {
         return $this->whenDelete;
+    }
+
+    /**
+     * toArray
+     *
+     * Retorna representação em array do registro
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        $array = [];
+
+        if (!empty($this->getWhenInsert())) {
+            $array['whenInsert'] = $this->getWhenInsert()->toArray();
+        }
+
+        if (!empty($this->getWhenUpdate())) {
+            $array['whenUpdate'] = $this->getWhenUpdate()->toArray();
+        }
+
+        if (!empty($this->getWhenDelete())) {
+            $array['whenDelete'] = $this->getWhenDelete()->toArray();
+        }
+
+        return $array;
     }
 }

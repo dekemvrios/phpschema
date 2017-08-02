@@ -65,7 +65,10 @@ class Schema extends SchemaAbstract
         ) {
             $databaseEntry = $schema['database'];
             $instance->setDatabase(
-                DatabaseEntry::make($databaseEntry, $instance->getProperties())
+                DatabaseEntry::make(
+                    $databaseEntry,
+                    $instance->getProperties()
+                )
             );
         }
 

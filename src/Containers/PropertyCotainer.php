@@ -22,29 +22,15 @@ class PropertyCotainer implements PropertyContainerContract
     /**
      * make
      *
-     * @param array $schema
+     * @param array $properties
      *
      * @return static
      * @throws TException
      */
-    public static function make($schema)
+    public static function make($properties)
     {
-        if (!array_key_exists(
-            'properties',
-            $schema
-        )
-        ) {
-            throw new TException(
-                __CLASS__,
-                __METHOD__,
-                "'properties' field has not been found for defining schema entry",
-                500
-            );
-        }
-        $propertiesEntry = $schema['properties'];
-
         $instance = new self();
-        foreach ($propertiesEntry as $item) {
+        foreach ($properties as $item) {
             $instance->append(
                 Property::make($item)
             );

@@ -8,6 +8,7 @@ use Solis\Expressive\Schema\Contracts\Entries\DynamicFunction\DynamicFunctionCon
 use Solis\Expressive\Schema\Contracts\Entries\Property\PropertyContract;
 use Solis\Expressive\Schema\Entries\Composition\Composition;
 use Solis\Expressive\Schema\Entries\Behavior\Behavior;
+use Solis\Expressive\Schema\Entries\DinamycFunction;
 use Solis\Breaker\TException;
 
 /**
@@ -114,7 +115,7 @@ class Property implements PropertyContract
         )) {
             $format = [];
             foreach ($dados['format'] as $item) {
-                $format[] = DinamyFunction::make($item);
+                $format[] = DinamycFunction::make($item);
             }
             $instance->setFormat($format);
         }
