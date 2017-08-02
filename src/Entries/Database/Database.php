@@ -3,6 +3,7 @@
 namespace Solis\Expressive\Schema\Entries\Database;
 
 use Solis\Expressive\Schema\Contracts\Entries\Database\DatabaseContract;
+use Solis\Expressive\Schema\Contracts\Entries\Database\ActionContract;
 use Solis\Breaker\TException;
 
 /**
@@ -21,6 +22,11 @@ class Database implements DatabaseContract
      * @var array
      */
     private $keys;
+
+    /**
+     * @var ActionContract
+     */
+    private $actions;
 
     /**
      * make
@@ -70,7 +76,7 @@ class Database implements DatabaseContract
             'actions',
             $database
         )) {
-            $instance->setActions(ActionsEntry::make($database['actions']));
+            $instance->setActions(Action::make($database['actions']));
         }
 
         return $instance;
@@ -122,5 +128,27 @@ class Database implements DatabaseContract
     public function getKeys()
     {
         return $this->keys;
+    }
+
+    /**
+     * setActions
+     *
+     * @param ActionContract $actions
+     */
+    public function setActions($actions)
+    {
+        $this->actions = $actions;
+    }
+
+    /**
+     * getActions
+     *
+     * Relação de acoes utilizadas no contexto das operações de persistencia do registro
+     *
+     * @return ActionContract
+     */
+    public function getActions()
+    {
+        return $this->actions;
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Solis\Expressive\Schema;
 
+use Solis\Expressive\Schema\Containers\DatabaseContainer;
+use Solis\Expressive\Schema\Containers\PropertyCotainer;
 use Solis\Expressive\Schema\Contracts\Entries\Property\ContainerContract as PropertyContainerContract;
 use Solis\Expressive\Schema\Contracts\Entries\Database\ContainerContract as DatabaseContainerContract;
 use Solis\Expressive\Schema\Contracts\SchemaContract;
@@ -28,14 +30,69 @@ class Schema implements SchemaContract
      * Schema constructor.
      *
      * @param PropertyContainerContract $propertyContainer
-     * @param DatabaseContainerContract $databaseContainer
      */
     protected function __construct(
-        $propertyContainer,
-        $databaseContainer
+        $propertyContainer
     ) {
         $this->serPropertyContainer($propertyContainer);
-        $this->setDatabaseContainer($databaseContainer);
+    }
+
+    /**
+     * make
+     *
+     * @param string $json
+     *
+     * @return Schema
+     * @throws TException
+     */
+    public static function make($json)
+    {
+        $schema = json_decode(
+            $json,
+            true
+        );
+        if (!$schema) {
+            throw new TException(
+                __CLASS__,
+                __METHOD__,
+                "Error decoding json file while creating schema",
+                500
+            );
+        }
+
+        if (!array_key_exists(
+            'properties',
+            $schema
+        )
+        ) {
+            throw new TException(
+                __CLASS__,
+                __METHOD__,
+                "'properties' field has not been found for defining schema entry",
+                500
+            );
+        }
+
+
+        $instance = new self(
+            PropertyCotainer::make(
+                $schema['properties']
+            )
+        );
+
+        if (array_key_exists(
+            'database',
+            $schema
+        )
+        ) {
+            $instance->setDatabaseContainer(
+                DatabaseContainer::make(
+                    $schema['database']
+                )
+            );
+        }
+
+        return $instance;
     }
 
     /**

@@ -4,6 +4,8 @@ namespace Solis\Expressive\Schema\Containers;
 
 use Solis\Expressive\Schema\Contracts\Entries\Database\ContainerContract as DatabaseContainerContract;
 use Solis\Expressive\Schema\Contracts\Entries\Database\DatabaseContract;
+use Solis\Expressive\Schema\Entries\Database\Database;
+use Solis\Breaker\TException;
 
 /**
  * Class DatabaseContainer
@@ -16,6 +18,24 @@ class DatabaseContainer implements DatabaseContainerContract
      * @var DatabaseContract
      */
     private $database;
+
+    /**
+     * make
+     *
+     * @param array $database
+     *
+     * @return static
+     * @throws TException
+     */
+    public static function make($database)
+    {
+        $instance = new self();
+        $instance->setDatabase(
+            Database::make($database)
+        );
+
+        return $instance;
+    }
 
     /**
      * setDatabase

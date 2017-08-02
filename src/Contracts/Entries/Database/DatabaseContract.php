@@ -27,4 +27,13 @@ interface DatabaseContract
      * @return string|array
      */
     public function getKeys();
+
+    /**
+     * getActions
+     *
+     * Relação de acoes utilizadas no contexto das operações de persistencia do registro
+     *
+     * @return ActionContract
+     */
+    public function getActions();
 }
