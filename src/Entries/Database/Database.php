@@ -5,6 +5,7 @@ namespace Solis\Expressive\Schema\Entries\Database;
 use Solis\Expressive\Schema\Contracts\Entries\Property\ContainerContract as PropertyContainerContract;
 use Solis\Expressive\Schema\Contracts\Entries\Database\DatabaseContract;
 use Solis\Expressive\Schema\Contracts\Entries\Database\ActionContract;
+use Solis\Expressive\Schema\Contracts\Entries\Property\PropertyContract;
 use Solis\Expressive\Schema\SchemaException;
 
 /**
@@ -20,7 +21,7 @@ class Database implements DatabaseContract
     private $repository;
 
     /**
-     * @var array
+     * @var PropertyContract[]
      */
     private $keys;
 
@@ -32,8 +33,8 @@ class Database implements DatabaseContract
     /**
      * DatabaseEntryAbstract constructor.
      *
-     * @param string       $table
-     * @param string|array $primaryKeys
+     * @param string             $table
+     * @param PropertyContract[] $primaryKeys
      */
     protected function __construct(
         $table,
@@ -83,9 +84,19 @@ class Database implements DatabaseContract
             );
         }
 
+        $metaKeys = $propertyContainer->getMeta($database['keys']);
+        if (empty($metaKeys)) {
+            throw new SchemaException(
+                __CLASS__,
+                __METHOD__,
+                'properties used as primary keys hasn\'t been found at properties entry array',
+                400
+            );
+        }
+
         $instance = new self(
             $database['repository'],
-            $database['keys']
+            $metaKeys
         );
 
         if (array_key_exists(
@@ -127,7 +138,7 @@ class Database implements DatabaseContract
      *
      * Atribui Relação de chaves utilizadas como identificador do registro na persistência
      *
-     * @param array $keys
+     * @param PropertyContract[] $keys
      */
     public function setKeys($keys)
     {
@@ -139,7 +150,7 @@ class Database implements DatabaseContract
      *
      * Relação de chaves utilizadas como identificador do registro na persistência
      *
-     * @return string|array
+     * @return PropertyContract[]
      */
     public function getKeys()
     {
@@ -179,8 +190,12 @@ class Database implements DatabaseContract
     {
         $array = [];
 
-        $array['table'] = $this->getRepository();
-        $array['primaryKeys'] = $this->getKeys();
+        $array['repository'] = $this->getRepository();
+
+        $array['keys'] = [];
+        foreach ($this->getKeys() as $primaryKey) {
+            $array['keys'][] = $primaryKey->toArray();
+        }
 
         if (!empty($this->getActions())) {
             $array['actions'] = $this->getActions()->toArray();

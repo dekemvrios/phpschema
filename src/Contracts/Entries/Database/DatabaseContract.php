@@ -2,6 +2,8 @@
 
 namespace Solis\Expressive\Schema\Contracts\Entries\Database;
 
+use Solis\Expressive\Schema\Contracts\Entries\Property\PropertyContract;
+
 /**
  * Interface DatabaseContract
  *
@@ -24,7 +26,7 @@ interface DatabaseContract
      *
      * Relação de chaves utilizadas como identificador do registro na persistência
      *
-     * @return string|array
+     * @return PropertyContract[]
      */
     public function getKeys();
 
