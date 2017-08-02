@@ -2,7 +2,7 @@
 
 ## PhpSchema
 
-PhpSchema é utiliza por [phpexpressive](https://github.com/rafaelbeecker/phpexpressive) como ferramenta para definição de configurações comportamento de um active record.
+PhpSchema é utilizado como ferramenta por [phpexpressive](https://github.com/rafaelbeecker/phpexpressive) para especificação das definições de objetos active record.
 
 ## Como instalar?
 
@@ -13,6 +13,8 @@ composer require solis/phpschema
 ``` 
 
 ## Como utilizar?
+
+...
 
 ## Change log
 
