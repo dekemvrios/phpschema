@@ -20,10 +20,10 @@ Fornecer uma string representando as definições do objeto para o método const
 $schema = Schema::make(
      file_get_contents(dirname(dirname(__FILE__)) . "/Schemas/Estado.json")
 );
- ```
+```
 
 A string será validada e retornará um objeto válido em caso de sucesso. Qualquer valor inválido irá disparar uma instancia SchemaException
-qual implementa a interface TExceptionContract
+qual implementa a interface TExceptionAbstract
 
 
 ## Change log
