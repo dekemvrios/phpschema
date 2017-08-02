@@ -89,13 +89,35 @@ class PropertyCotainer implements PropertyContainerContract
      *
      * @return array|bool
      */
-    public function getMeta($properties, $identifier = 'property')
-    {
+    public function getMeta(
+        $properties,
+        $identifier = 'property'
+    ) {
         $properties = !is_array($properties) ? [$properties] : $properties;
 
         $meta = array_filter($this->getProperties(), function (PropertyContract $property) use ($properties, $identifier) {
             return in_array($property->{'get' . $identifier}(), $properties);
         });
+
+        return !empty($meta) ? $meta : false;
+    }
+
+    /**
+     * getValue
+     *
+     * Retorna um array dos valores atribuidos aos propriedades do schema de acordo com o identificador fornecido
+     * como argumento
+     *
+     * @param string $identifier
+     *
+     * @return array|bool
+     */
+    public function getValue(
+        $identifier
+    ) {
+        $meta = array_map(function (PropertyContract $property) use ($identifier){
+            return $property->{'get' . $identifier}();
+        }, $this->getProperties());
 
         return !empty($meta) ? $meta : false;
     }
