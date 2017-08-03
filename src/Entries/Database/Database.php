@@ -26,6 +26,11 @@ class Database implements DatabaseContract
     private $keys;
 
     /**
+     * @var PropertyContract[]
+     */
+    private $dependencies;
+
+    /**
      * @var ActionContract
      */
     private $actions;
@@ -177,6 +182,30 @@ class Database implements DatabaseContract
     public function getActions()
     {
         return $this->actions;
+    }
+
+    /**
+     * setDependencies
+     *
+     * Atribui Relação de dependencias atribuidas ao registro
+     *
+     * @param PropertyContract[] $dependencies
+     */
+    public function setDependencies($dependencies)
+    {
+        $this->dependencies = $dependencies;
+    }
+
+    /**
+     * getDependencies
+     *
+     * Relação de dependencias atribuidas ao registro
+     *
+     * @return PropertyContract[]
+     */
+    public function getDependencies()
+    {
+        return $this->dependencies;
     }
 
     /**

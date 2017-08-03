@@ -31,6 +31,15 @@ interface DatabaseContract
     public function getKeys();
 
     /**
+     * getDependencies
+     *
+     * Relação de dependencias atribuidas ao registro
+     *
+     * @return PropertyContract[]
+     */
+    public function getDependencies();
+
+    /**
      * getActions
      *
      * Relação de acoes utilizadas no contexto das operações de persistencia do registro

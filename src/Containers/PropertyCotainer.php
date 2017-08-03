@@ -103,6 +103,35 @@ class PropertyCotainer implements PropertyContainerContract
     }
 
     /**
+     * getMetaForRelationshipType
+     *
+     * Retorna um array de objetos contendo a relação de propriedades de acordo com o o tipo de relacionamento desejado
+     * fornecido como argumento
+     *
+     * @param string|null $type tipo de relacionamento a ser considerado para retorno de valores
+     *
+     * @return array|bool
+     */
+    public function getMetaForRelationshipType(
+        $type = null
+    ) {
+        $meta = array_filter($this->getProperties(), function (PropertyContract $property) use ($type) {
+            if (!empty($property->getComposition())) {
+                if (
+                    !empty($type) &&
+                    !$property->getComposition()->getRelationship()->getType() == $type
+                ) {
+                    return false;
+                }
+                return true;
+            }
+            return false;
+        });
+
+        return !empty($meta) ? $meta : false;
+    }
+
+    /**
      * getValue
      *
      * Retorna um array dos valores atribuidos aos propriedades do schema de acordo com o identificador fornecido

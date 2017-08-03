@@ -113,8 +113,6 @@ class Schema implements SchemaContract
      * Retorna o container contendo operações e especificações de propriedades
      *
      * @return PropertyContainerContract
-     *
-     * @throws TException
      */
     public function getPropertyContainer()
     {
@@ -139,8 +137,6 @@ class Schema implements SchemaContract
      * Retorna o container contendo operações e especificações de database
      *
      * @return DatabaseContainerContract
-     *
-     * @throws TException
      */
     public function getDatabaseContainer()
     {
@@ -155,8 +151,6 @@ class Schema implements SchemaContract
      * @param array $properties
      *
      * @return array
-     *
-     * @throws TException
      */
     public function toArray($properties = null)
     {
@@ -186,8 +180,6 @@ class Schema implements SchemaContract
      * Retorna uma representação em formato json do schema
      *
      * @return string
-     *
-     * @throws TException
      */
     public function toJson()
     {
