@@ -89,6 +89,24 @@ interface SchemaContract
     public function getPersistentFields();
 
     /**
+     * getSearchableFieldsMeta
+     *
+     * Retorna a relação de propriades vinculadas a persistencia do registro habilitadas para consulta
+     *
+     * @return PropertyContract[]|boolean
+     */
+    public function getSearchableFieldsMeta();
+
+    /**
+     * getSearchableFieldsString
+     *
+     * Retorna a relação de propriades vinculadas a persistencia do registro habilitadas para consulta
+     *
+     * @return string|boolean
+     */
+    public function getSearchableFieldsString();
+
+    /**
      * getPropertyEntryByIdentifier
      *
      * Retornar o conjunto de especificações de determinada propriedade presente no schema de acordo com a relação de

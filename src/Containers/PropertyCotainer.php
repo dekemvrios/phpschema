@@ -159,7 +159,7 @@ class PropertyCotainer implements PropertyContainerContract
      *
      * @param null $exceptRelationshipType
      *
-     * @return array|bool
+     * @return PropertyContract[]|bool
      */
     public function getFields(
         $exceptRelationshipType = null
@@ -176,6 +176,6 @@ class PropertyCotainer implements PropertyContainerContract
             return $property;
         });
 
-        return !empty($meta) ? $meta : false;
+        return !empty($meta) ? array_values($meta) : false;
     }
 }

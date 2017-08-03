@@ -34,6 +34,16 @@ class Schema implements SchemaContract
     private $persistentFields = [];
 
     /**
+     * @var PropertyContract[]|string
+     */
+    private $searchableFieldsMeta = [];
+
+    /**
+     * @var string
+     */
+    private $searchableFieldsString;
+
+    /**
      * @var array
      */
     private $meta;
@@ -198,6 +208,10 @@ class Schema implements SchemaContract
      */
     public function getDependencies($type = null)
     {
+        if (empty($this->getDatabaseContainer()->getDatabase()->getDependencies())) {
+            return false;
+        }
+
         if (!empty($type)) {
             return $this->getDatabaseContainer()->getDatabase()->getDependencies()->{'get' . $type}();
         }
@@ -284,22 +298,73 @@ class Schema implements SchemaContract
 
             $persistentFields = $this->getPropertyContainer()->getFields('hasMany');
             if (!empty($persistentFields)) {
-                $persistentFields = array_filter($persistentFields, function (PropertyContract $property) {
-                    if (!$property->getBehavior() instanceof IntegerBehavior) {
+                $persistentFields = array_filter(
+                    $persistentFields,
+                    function (PropertyContract $property) {
+                        if (!$property->getBehavior() instanceof IntegerBehavior) {
+                            return true;
+                        }
+
+                        if ($property->getBehavior()->getIncrementalBehavior() == 'database') {
+                            return false;
+                        }
+
                         return true;
                     }
-
-                    if ($property->getBehavior()->getIncrementalBehavior() == 'database') {
-                        return false;
-                    }
-
-                    return true;
-                });
+                );
             }
             $this->persistentFields = $persistentFields;
         }
 
         return $this->persistentFields;
+    }
+
+    /**
+     * getSearchableFieldsMeta
+     *
+     * Retorna a relação de propriades vinculadas a persistencia do registro habilitadas para consulta
+     *
+     * @return PropertyContract[]|boolean
+     */
+    public function getSearchableFieldsMeta()
+    {
+        if (!empty($this->searchableFieldsMeta)) {
+            return $this->searchableFieldsMeta;
+        }
+
+        $this->searchableFieldsMeta = $this->getPropertyContainer()->getFields('hasMany');
+
+        return $this->searchableFieldsMeta;
+    }
+
+    /**
+     * getSearchableFieldsString
+     *
+     * Retorna a relação de propriades vinculadas a persistencia do registro habilitadas para consulta
+     *
+     * @return string|boolean
+     */
+    public function getSearchableFieldsString()
+    {
+        if (!empty($this->searchableFieldsString)) {
+            return $this->searchableFieldsString;
+        }
+
+        $searchableFieldsMeta = $this->getSearchableFieldsMeta();
+        if (empty($searchableFieldsMeta)) {
+            return false;
+        }
+
+        $searchableFieldsString = array_map(function (PropertyContract $property) {
+            return $property->getField();
+        }, $searchableFieldsMeta);
+
+        $this->searchableFieldsString = implode(
+            ',',
+            $searchableFieldsString
+        );
+
+        return $this->searchableFieldsMeta;
     }
 
     /**
