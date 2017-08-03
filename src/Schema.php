@@ -240,16 +240,14 @@ class Schema implements SchemaContract
      *
      * Retorna a relação de propriedades do active record com exceção dos do tipo de relacionamento hasMany
      *
-     * @param bool $ignoreDatabaseIncrement indica se deverá retornar os valores incrementáveis pelo banco
-     *
      * @return PropertyContract[]
      */
-    public function getPersistentFields($ignoreDatabaseIncrement = false)
+    public function getPersistentFields()
     {
         if (empty($this->persistentFields)) {
 
             $persistentFields = $this->getPropertyContainer()->getFields('hasMany');
-            if (!empty($persistentFields) && !empty($ignoreDatabaseIncrement)) {
+            if (!empty($persistentFields)) {
                 $persistentFields = array_filter($persistentFields, function (PropertyContract $property) {
                     if (!$property->getBehavior() instanceof IntegerBehavior) {
                         return true;

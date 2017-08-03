@@ -66,11 +66,9 @@ interface SchemaContract
      *
      * Retorna a relação de propriedades do active record com exceção dos do tipo de relacionamento hasMany
      *
-     * @param bool $ignoreDatabaseIncrement indica se deverá retornar os valores incrementáveis pelo banco
-     *
      * @return PropertyContract[]
      */
-    public function getPersistentFields($ignoreDatabaseIncrement = false);
+    public function getPersistentFields();
 
     /**
      * toArray
