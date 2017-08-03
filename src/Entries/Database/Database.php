@@ -23,12 +23,12 @@ class Database implements DatabaseContract
     /**
      * @var PropertyContract[]
      */
-    private $keys;
+    private $keys = [];
 
     /**
      * @var PropertyContract[]
      */
-    private $dependencies;
+    private $dependencies = [];
 
     /**
      * @var ActionContract
@@ -103,6 +103,11 @@ class Database implements DatabaseContract
             $database['repository'],
             $metaKeys
         );
+
+        $metaDependencies = $propertyContainer->getMetaForRelationshipType();
+        if (!empty($metaDependencies)) {
+            $instance->setDependencies($metaDependencies);
+        }
 
         if (array_key_exists(
             'actions',
@@ -224,6 +229,13 @@ class Database implements DatabaseContract
         $array['keys'] = [];
         foreach ($this->getKeys() as $primaryKey) {
             $array['keys'][] = $primaryKey->toArray();
+        }
+
+        if (!empty($this->getDependencies())) {
+            $array['dependencies'] = [];
+            foreach ($this->getDependencies() as $dependency) {
+                $array['dependencies'][] = $dependency->toArray();
+            }
         }
 
         if (!empty($this->getActions())) {
