@@ -4,6 +4,15 @@ Todas as modificações relevantes para phpbreaker serão documentadas neste arq
 
 O formato é baseado [Keep a CHANGELOG](http://keepachangelog.com/) e esse projeto adere ao [Semantic Versioning 2.0.0](http://semver.org/).  
 
+## [1.0.0] - 2017-08-03
+
+## Changed
+- Modificado namespace do projeto de modo a considera-lo como integrante do contexto Expressive.
+- Atualizado interface de métodos disponível para instância do Schema.
+s
+## Changed
+- Atualizado versão phpbreaker para 0.0.2 de modo a garantir compatiblidade com funções extras de tratamento de erros.
+
 ## [0.2.0] - 2017-07-10
 
 ## Changed
