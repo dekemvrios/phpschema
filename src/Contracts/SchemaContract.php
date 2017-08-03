@@ -107,6 +107,24 @@ interface SchemaContract
     public function getSearchableFieldsString();
 
     /**
+     * getDatabaseIncrementalFieldsString
+     *
+     * Retorna a relação de meta informação de propriedades vinculadas a persistencia com incremento a partir do database
+     *
+     * @return PropertyContract[]|boolean
+     */
+    public function getDatabaseIncrementalFieldsMeta();
+
+    /**
+     * getDatabaseIncrementalFieldsString
+     *
+     * Retorna a relação de propriedades vinculadas a persistencia com incremento a partir do database
+     *
+     * @return array|boolean
+     */
+    public function getDatabaseIncrementalFieldsString();
+
+    /**
      * getPropertyEntryByIdentifier
      *
      * Retornar o conjunto de especificações de determinada propriedade presente no schema de acordo com a relação de

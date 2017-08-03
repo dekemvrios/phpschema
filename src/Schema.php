@@ -39,9 +39,19 @@ class Schema implements SchemaContract
     private $searchableFieldsMeta = [];
 
     /**
-     * @var string
+     * @var array
      */
     private $searchableFieldsString;
+
+    /**
+     * @var PropertyContract[]
+     */
+    private $databaseIncrementalFieldsMeta;
+
+    /**
+     * @var array
+     */
+    private $databaseIncrementalFieldsString;
 
     /**
      * @var array
@@ -320,6 +330,66 @@ class Schema implements SchemaContract
     }
 
     /**
+     * getDatabaseIncrementalFieldsString
+     *
+     * Retorna a relação de meta informação de propriedades vinculadas a persistencia com incremento a partir do database
+     *
+     * @return PropertyContract[]|boolean
+     */
+    public function getDatabaseIncrementalFieldsMeta()
+    {
+        if (!empty($this->databaseIncrementalFieldsMeta)) {
+            return $this->databaseIncrementalFieldsMeta;
+        }
+
+        $databaseIncrementalFieldsMeta = $this->getPropertyContainer()->getFields('hasMany');
+        if (!empty($databaseIncrementalFieldsMeta)) {
+            $databaseIncrementalFieldsMeta = array_filter(
+                $databaseIncrementalFieldsMeta,
+                function (PropertyContract $property) {
+                    if (!$property->getBehavior() instanceof IntegerBehavior) {
+                        return false;
+                    }
+
+                    if ($property->getBehavior()->getIncrementalBehavior() !== 'database') {
+                        return false;
+                    }
+
+                    return true;
+                }
+            );
+        }
+        $this->databaseIncrementalFieldsMeta = $databaseIncrementalFieldsMeta;
+
+        return $this->databaseIncrementalFieldsMeta;
+    }
+
+    /**
+     * getDatabaseIncrementalFieldsString
+     *
+     * Retorna a relação de propriedades vinculadas a persistencia com incremento a partir do database
+     *
+     * @return array|boolean
+     */
+    public function getDatabaseIncrementalFieldsString()
+    {
+        if (!empty($this->databaseIncrementalFieldsString)) {
+            return $this->databaseIncrementalFieldsString;
+        }
+
+        $databaseIncrementalFieldsMeta = $this->getDatabaseIncrementalFieldsMeta();
+        if (empty($databaseIncrementalFieldsMeta)) {
+            return false;
+        }
+
+        $this->databaseIncrementalFieldsString = array_map(function (PropertyContract $property) {
+            return $property->getField();
+        }, $databaseIncrementalFieldsMeta);
+
+        return $this->databaseIncrementalFieldsString;
+    }
+
+    /**
      * getSearchableFieldsMeta
      *
      * Retorna a relação de propriades vinculadas a persistencia do registro habilitadas para consulta
@@ -342,7 +412,7 @@ class Schema implements SchemaContract
      *
      * Retorna a relação de propriades vinculadas a persistencia do registro habilitadas para consulta
      *
-     * @return string|boolean
+     * @return array|boolean
      */
     public function getSearchableFieldsString()
     {
@@ -355,16 +425,11 @@ class Schema implements SchemaContract
             return false;
         }
 
-        $searchableFieldsString = array_map(function (PropertyContract $property) {
+        $this->searchableFieldsString = array_map(function (PropertyContract $property) {
             return $property->getField();
         }, $searchableFieldsMeta);
 
-        $this->searchableFieldsString = implode(
-            ',',
-            $searchableFieldsString
-        );
-
-        return $this->searchableFieldsMeta;
+        return $this->searchableFieldsString;
     }
 
     /**
