@@ -2,6 +2,7 @@
 
 namespace Solis\Expressive\Schema\Contracts;
 
+use Solis\Expressive\Schema\Contracts\Entries\Database\DependenciesContract;
 use Solis\Expressive\Schema\Contracts\Entries\Property\PropertyContract;
 
 /**
@@ -35,9 +36,11 @@ interface SchemaContract
      *
      * Retorna a relação de propriedades especificadas como dependências do active record
      *
-     * @return PropertyContract[]
+     * @param  string $type tipo de dependencia a ser retornada
+     *
+     * @return DependenciesContract|boolean
      */
-    public function getDependencies();
+    public function getDependencies($type = null);
 
     /**
      * getKeys

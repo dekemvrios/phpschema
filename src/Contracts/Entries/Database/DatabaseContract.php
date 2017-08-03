@@ -35,7 +35,7 @@ interface DatabaseContract
      *
      * Relação de dependencias atribuidas ao registro
      *
-     * @return PropertyContract[]
+     * @return DependenciesContract
      */
     public function getDependencies();
 

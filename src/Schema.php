@@ -173,11 +173,35 @@ class Schema implements SchemaContract
      *
      * Retorna a relação de propriedades especificadas como dependências do active record
      *
-     * @return PropertyContract[]
+     * @param  string $type tipo de dependencia a ser retornada
+     *
+     * @return PropertyContract[]|boolean
      */
-    public function getDependencies()
+    public function getDependencies($type = null)
     {
-        return $this->getDatabaseContainer()->getDatabase()->getDependencies();
+        if (!empty($type)) {
+            return $this->getDatabaseContainer()->getDatabase()->getDependencies()->{'get' . $type}();
+        }
+
+        $array = [];
+
+        $hasOne = $this->getDatabaseContainer()->getDatabase()->getDependencies()->getHasOne();
+        if (!empty($hasOne)) {
+            $array = array_merge(
+                $array,
+                array_values($hasOne)
+            );
+        }
+
+        $hasMany = $this->getDatabaseContainer()->getDatabase()->getDependencies()->getHasMany();
+        if (!empty($hasMany)) {
+            $array = array_merge(
+                $array,
+                array_values($hasMany)
+            );
+        }
+
+        return !empty($array) ? $array : false;
     }
 
     /**

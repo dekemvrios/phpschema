@@ -2,6 +2,7 @@
 
 namespace Solis\Expressive\Schema\Entries\Database;
 
+use Solis\Expressive\Schema\Contracts\Entries\Database\DependenciesContract;
 use Solis\Expressive\Schema\Contracts\Entries\Property\ContainerContract as PropertyContainerContract;
 use Solis\Expressive\Schema\Contracts\Entries\Database\DatabaseContract;
 use Solis\Expressive\Schema\Contracts\Entries\Database\ActionContract;
@@ -26,9 +27,9 @@ class Database implements DatabaseContract
     private $keys = [];
 
     /**
-     * @var PropertyContract[]
+     * @var DependenciesContract
      */
-    private $dependencies = [];
+    private $dependencies;
 
     /**
      * @var ActionContract
@@ -104,9 +105,17 @@ class Database implements DatabaseContract
             $metaKeys
         );
 
-        $metaDependencies = $propertyContainer->getMetaForRelationshipType();
-        if (!empty($metaDependencies)) {
-            $instance->setDependencies($metaDependencies);
+        $metaHasOneDependencies = $propertyContainer->getMetaForRelationshipType('hasOne');
+        $metaHasManyDependencies = $propertyContainer->getMetaForRelationshipType('hasMany');
+        if (!empty($metaHasOneDependencies) || !empty($metaHasManyDependencies)) {
+            $dependency = new Dependencies();
+            if (!empty($metaHasManyDependencies)) {
+                $dependency->setHasMany(array_values($metaHasManyDependencies));
+            }
+            if (!empty($metaHasOneDependencies)) {
+                $dependency->setHasOne(array_values($metaHasOneDependencies));
+            }
+            $instance->setDependencies($dependency);
         }
 
         if (array_key_exists(
@@ -194,7 +203,7 @@ class Database implements DatabaseContract
      *
      * Atribui Relação de dependencias atribuidas ao registro
      *
-     * @param PropertyContract[] $dependencies
+     * @param DependenciesContract $dependencies
      */
     public function setDependencies($dependencies)
     {
@@ -206,7 +215,7 @@ class Database implements DatabaseContract
      *
      * Relação de dependencias atribuidas ao registro
      *
-     * @return PropertyContract[]
+     * @return DependenciesContract
      */
     public function getDependencies()
     {
@@ -232,10 +241,7 @@ class Database implements DatabaseContract
         }
 
         if (!empty($this->getDependencies())) {
-            $array['dependencies'] = [];
-            foreach ($this->getDependencies() as $dependency) {
-                $array['dependencies'][] = $dependency->toArray();
-            }
+            $array['dependencies'] = $this->getDependencies()->toArray();
         }
 
         if (!empty($this->getActions())) {
