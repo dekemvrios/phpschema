@@ -9,9 +9,7 @@ try {
 
     $instance = new Estado();
 
-    // echo $instance->schema->toJson();
-
-    var_dump($instance->schema->getPersistentFields(true));
+    echo $instance->schema->toJson();
 
 } catch (TExceptionAbstract $exception) {
     echo $exception->toJson();

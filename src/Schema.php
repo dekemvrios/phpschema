@@ -2,13 +2,14 @@
 
 namespace Solis\Expressive\Schema;
 
-use Solis\Expressive\Schema\Containers\DatabaseContainer;
-use Solis\Expressive\Schema\Containers\PropertyCotainer;
 use Solis\Expressive\Schema\Contracts\Entries\Property\PropertyContract;
 use Solis\Expressive\Schema\Contracts\Entries\Property\ContainerContract as PropertyContainerContract;
 use Solis\Expressive\Schema\Contracts\Entries\Database\ContainerContract as DatabaseContainerContract;
-use Solis\Expressive\Schema\Contracts\SchemaContract;
+use Solis\Expressive\Schema\Contracts\Entries\Database\ActionContract;
 use Solis\Expressive\Schema\Entries\Behavior\IntegerBehavior;
+use Solis\Expressive\Schema\Containers\DatabaseContainer;
+use Solis\Expressive\Schema\Containers\PropertyCotainer;
+use Solis\Expressive\Schema\Contracts\SchemaContract;
 
 /**
  * Class Schema
@@ -220,6 +221,18 @@ class Schema implements SchemaContract
     public function getKeys()
     {
         return $this->getDatabaseContainer()->getDatabase()->getKeys();
+    }
+
+    /**
+     * getActions
+     *
+     * Retorna a relação de ações especificadas a serem executadas no contexto da persistência
+     *
+     * @return ActionContract
+     */
+    public function getActions()
+    {
+        return $this->getDatabaseContainer()->getDatabase()->getActions();
     }
 
     /**

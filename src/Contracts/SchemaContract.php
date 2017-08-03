@@ -2,6 +2,7 @@
 
 namespace Solis\Expressive\Schema\Contracts;
 
+use Solis\Expressive\Schema\Contracts\Entries\Database\ActionContract;
 use Solis\Expressive\Schema\Contracts\Entries\Database\DependenciesContract;
 use Solis\Expressive\Schema\Contracts\Entries\Property\PropertyContract;
 
@@ -50,6 +51,15 @@ interface SchemaContract
      * @return PropertyContract[]
      */
     public function getKeys();
+
+    /**
+     * getActions
+     *
+     * Retorna a relação de ações especificadas a serem executadas no contexto da persistência
+     *
+     * @return ActionContract
+     */
+    public function getActions();
 
     /**
      * getPersistentFields
