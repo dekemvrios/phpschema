@@ -34,6 +34,11 @@ class Schema implements SchemaContract
     private $persistentFields = [];
 
     /**
+     * @var array
+     */
+    private $meta;
+
+    /**
      * Schema constructor.
      *
      * @param PropertyContainerContract $propertyContainer
@@ -98,6 +103,13 @@ class Schema implements SchemaContract
                     $instance->getPropertyContainer()
                 )
             );
+        }
+
+        if (array_key_exists(
+            'meta',
+            $schema
+        )) {
+            $instance->setMeta($schema['meta']);
         }
 
         return $instance;
@@ -236,6 +248,30 @@ class Schema implements SchemaContract
     }
 
     /**
+     * getMeta
+     *
+     * Retorna a relação meta informação atribuida ao schema
+     *
+     * @return mixed
+     */
+    public function getMeta()
+    {
+        return $this->meta;
+    }
+
+    /**
+     * setMeta
+     *
+     * Atribui a relação de meta informação sobre o schema
+     *
+     * @param mixed $meta
+     */
+    public function setMeta($meta)
+    {
+        $this->meta = $meta;
+    }
+
+    /**
      * getPersistentFields
      *
      * Retorna a relação de propriedades do active record com exceção dos do tipo de relacionamento hasMany
@@ -302,6 +338,11 @@ class Schema implements SchemaContract
     public function toArray($properties = null)
     {
         $array = [];
+
+        if (!empty($this->getMeta())) {
+            $array['meta'] = $this->getMeta();
+        }
+
         if (!empty($this->getPropertyContainer())) {
             $array['properties'] = [];
 

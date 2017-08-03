@@ -62,6 +62,24 @@ interface SchemaContract
     public function getActions();
 
     /**
+     * setMeta
+     *
+     * Atribui a relação de meta informação sobre o schema
+     *
+     * @param mixed $meta
+     */
+    public function setMeta($meta);
+
+    /**
+     * getMeta
+     *
+     * Retorna a relação meta informação atribuida ao schema
+     *
+     * @return mixed
+     */
+    public function getMeta();
+
+    /**
      * getPersistentFields
      *
      * Retorna a relação de propriedades do active record com exceção dos do tipo de relacionamento hasMany

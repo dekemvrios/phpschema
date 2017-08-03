@@ -57,6 +57,11 @@ class Estado
         $this->schema = Schema::make(
             file_get_contents(dirname(dirname(__FILE__)) . "/Schemas/Estado.json")
         );
+
+        $this->schema->setMeta([
+            'name' => 'Controle de Estados',
+            'data' => Date('Y-m-d H:i:s')
+        ]);
     }
 
     public static function make()
