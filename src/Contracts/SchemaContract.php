@@ -71,6 +71,22 @@ interface SchemaContract
     public function getPersistentFields();
 
     /**
+     * getPropertyEntryByIdentifier
+     *
+     * Retornar o conjunto de especificações de determinada propriedade presente no schema de acordo com a relação de
+     * valor a ser encontrado e a qual entrada do conjunto de propriedades pertence esse valor.
+     *
+     * @param mixed  $value      Valor a ser comparado com determinada entrada no conjunto de propriedades
+     * @param string $identifier Propriede qual contem o valor a ser buscado
+     *
+     * @return mixed
+     */
+    public function getPropertyEntryByIdentifier(
+        $value,
+        $identifier = 'property'
+    );
+
+    /**
      * toArray
      *
      * Retorna uma representação em formato de array associativo do schema
