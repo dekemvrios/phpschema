@@ -121,4 +121,32 @@ class PropertyCotainer implements PropertyContainerContract
 
         return !empty($meta) ? $meta : false;
     }
+
+    /**
+     * getFields
+     *
+     * Retorna os valores atribuidos a entrada Fields atribuidos a relação de propriedades, sem possível excluir dessa
+     * relação os valores de um determinado tipo de relacionamento caso fornecido como argumento
+     *
+     * @param null $exceptRelationshipType
+     *
+     * @return array|bool
+     */
+    public function getFields(
+        $exceptRelationshipType = null
+    ) {
+        $meta = array_filter($this->getProperties(), function (PropertyContract $property) use ($exceptRelationshipType){
+            if (!empty($exceptRelationshipType)) {
+                if (
+                    !empty($property->getComposition()) &&
+                    $property->getComposition()->getRelationship()->getType() === $exceptRelationshipType
+                ) {
+                    return false;
+                }
+            }
+            return $property->getField();
+        });
+
+        return !empty($meta) ? $meta : false;
+    }
 }
