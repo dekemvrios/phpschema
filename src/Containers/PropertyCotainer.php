@@ -119,7 +119,7 @@ class PropertyCotainer implements PropertyContainerContract
             if (!empty($property->getComposition())) {
                 if (
                     !empty($type) &&
-                    !$property->getComposition()->getRelationship()->getType() == $type
+                    $property->getComposition()->getRelationship()->getType() != $type
                 ) {
                     return false;
                 }
