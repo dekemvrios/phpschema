@@ -2,8 +2,7 @@
 
 namespace Solis\Expressive\Schema\Contracts;
 
-use Solis\Expressive\Schema\Contracts\Entries\Property\ContainerContract as PropertyContainerContract;
-use Solis\Expressive\Schema\Contracts\Entries\Database\ContainerContract as DatabaseContainerContract;
+use Solis\Expressive\Schema\Contracts\Entries\Property\PropertyContract;
 
 /**
  * Interface SchemaContract
@@ -14,33 +13,49 @@ interface SchemaContract
 {
 
     /**
-     * getPropertyContainer
+     * getRepository
      *
-     * Retorna o container contendo operações e especificações de propriedades
+     * Retorna o nome do repositorio utilizado para persistir o registro
      *
-     * @return PropertyContainerContract
+     * @return string
      */
-    public function getPropertyContainer();
+    public function getRepository();
 
     /**
-     * getDatabaseContainer
+     * getProperties
      *
-     * Retorna o container contendo operações e especificações de database
+     * Retorna a relação de propriedades do active record
      *
-     * @return DatabaseContainerContract
+     * @return PropertyContract[]
      */
-    public function getDatabaseContainer();
+    public function getProperties();
+
+    /**
+     * getDependencies
+     *
+     * Retorna a relação de propriedades especificadas como dependências do active record
+     *
+     * @return PropertyContract[]
+     */
+    public function getDependencies();
+
+    /**
+     * getKeys
+     *
+     * Retorna a relação de propriedades especificadas como chaves de identificação do active record
+     *
+     * @return PropertyContract[]
+     */
+    public function getKeys();
 
     /**
      * toArray
      *
      * Retorna uma representação em formato de array associativo do schema
      *
-     * @param array $properties
-     *
      * @return array
      */
-    public function toArray($properties = null);
+    public function toArray();
 
     /**
      * toJson

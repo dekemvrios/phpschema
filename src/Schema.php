@@ -4,6 +4,7 @@ namespace Solis\Expressive\Schema;
 
 use Solis\Expressive\Schema\Containers\DatabaseContainer;
 use Solis\Expressive\Schema\Containers\PropertyCotainer;
+use Solis\Expressive\Schema\Contracts\Entries\Property\PropertyContract;
 use Solis\Expressive\Schema\Contracts\Entries\Property\ContainerContract as PropertyContainerContract;
 use Solis\Expressive\Schema\Contracts\Entries\Database\ContainerContract as DatabaseContainerContract;
 use Solis\Expressive\Schema\Contracts\SchemaContract;
@@ -41,7 +42,7 @@ class Schema implements SchemaContract
      *
      * @param string $json
      *
-     * @return Schema
+     * @return SchemaContract
      * @throws SchemaException
      */
     public static function make($json)
@@ -144,6 +145,54 @@ class Schema implements SchemaContract
     }
 
     /**
+     * getRepository
+     *
+     * Retorna o nome do repositorio utilizado para persistir o registro
+     *
+     * @return string
+     */
+    public function getRepository()
+    {
+        return $this->getDatabaseContainer()->getDatabase()->getRepository();
+    }
+
+    /**
+     * getProperties
+     *
+     * Retorna a relação de propriedades do active record
+     *
+     * @return PropertyContract[]
+     */
+    public function getProperties()
+    {
+        return $this->getPropertyContainer()->getProperties();
+    }
+
+    /**
+     * getDependencies
+     *
+     * Retorna a relação de propriedades especificadas como dependências do active record
+     *
+     * @return PropertyContract[]
+     */
+    public function getDependencies()
+    {
+        return $this->getDatabaseContainer()->getDatabase()->getDependencies();
+    }
+
+    /**
+     * getKeys
+     *
+     * Retorna a relação de propriedades especificadas como chaves de identificação do active record
+     *
+     * @return PropertyContract[]
+     */
+    public function getKeys()
+    {
+        return $this->getDatabaseContainer()->getDatabase()->getKeys();
+    }
+
+    /**
      * toArray
      *
      * Retorna uma representação em formato de array associativo do schema
@@ -163,7 +212,7 @@ class Schema implements SchemaContract
                     $item,
                     'toArray'
                 )) {
-                    $array['properties'][] = $item->toArray(!empty($properties) ? $properties : null);
+                    $array['properties'][] = $item->toArray();
                 }
             }
         }
