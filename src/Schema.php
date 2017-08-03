@@ -8,6 +8,7 @@ use Solis\Expressive\Schema\Contracts\Entries\Property\PropertyContract;
 use Solis\Expressive\Schema\Contracts\Entries\Property\ContainerContract as PropertyContainerContract;
 use Solis\Expressive\Schema\Contracts\Entries\Database\ContainerContract as DatabaseContainerContract;
 use Solis\Expressive\Schema\Contracts\SchemaContract;
+use Solis\Expressive\Schema\Entries\Behavior\IntegerBehavior;
 
 /**
  * Class Schema
@@ -25,6 +26,11 @@ class Schema implements SchemaContract
      * @var DatabaseContainerContract
      */
     private $databaseContainer;
+
+    /**
+     * @var PropertyContract[]
+     */
+    private $persistentFields = [];
 
     /**
      * Schema constructor.
@@ -214,6 +220,39 @@ class Schema implements SchemaContract
     public function getKeys()
     {
         return $this->getDatabaseContainer()->getDatabase()->getKeys();
+    }
+
+    /**
+     * getPersistentFields
+     *
+     * Retorna a relação de propriedades do active record com exceção dos do tipo de relacionamento hasMany
+     *
+     * @param bool $ignoreDatabaseIncrement indica se deverá retornar os valores incrementáveis pelo banco
+     *
+     * @return PropertyContract[]
+     */
+    public function getPersistentFields($ignoreDatabaseIncrement = false)
+    {
+        if (empty($this->persistentFields)) {
+
+            $persistentFields = $this->getPropertyContainer()->getFields('hasMany');
+            if (!empty($persistentFields) && !empty($ignoreDatabaseIncrement)) {
+                $persistentFields = array_filter($persistentFields, function (PropertyContract $property) {
+                    if (!$property->getBehavior() instanceof IntegerBehavior) {
+                        return true;
+                    }
+
+                    if ($property->getBehavior()->getIncrementalBehavior() == 'database') {
+                        return false;
+                    }
+
+                    return true;
+                });
+            }
+            $this->persistentFields = $persistentFields;
+        }
+
+        return $this->persistentFields;
     }
 
     /**

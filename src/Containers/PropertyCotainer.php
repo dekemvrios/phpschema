@@ -173,7 +173,7 @@ class PropertyCotainer implements PropertyContainerContract
                     return false;
                 }
             }
-            return $property->getField();
+            return $property;
         });
 
         return !empty($meta) ? $meta : false;
