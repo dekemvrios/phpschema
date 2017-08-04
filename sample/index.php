@@ -11,7 +11,7 @@ try {
 
     //echo $instance->schema->toJson();
 
-    var_dump($instance->schema->getDatabaseIncrementalFieldsString());
+    var_dump($instance->schema->getDatabaseIncrementalFieldsMeta());
 
 } catch (TExceptionAbstract $exception) {
     echo $exception->toJson();
