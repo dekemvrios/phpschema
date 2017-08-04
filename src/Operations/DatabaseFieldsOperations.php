@@ -31,6 +31,16 @@ trait DatabaseFieldsOperations
     /**
      * @var PropertyContract[]
      */
+    private $incrementalFieldsMeta;
+
+    /**
+     * @var array
+     */
+    private $incrementalFieldsString;
+
+    /**
+     * @var PropertyContract[]
+     */
     private $databaseIncrementalFieldsMeta;
 
     /**
@@ -84,6 +94,66 @@ trait DatabaseFieldsOperations
     }
 
     /**
+     * getIncrementalFieldsMeta
+     *
+     * Retorna a relação de meta informação de propriedades vinculadas a persistencia com incremento
+     *
+     * @return PropertyContract[]|boolean
+     */
+    public function getIncrementalFieldsMeta()
+    {
+        if (!empty($this->incrementalFieldsMeta)) {
+            return $this->incrementalFieldsMeta;
+        }
+
+        $incrementalFieldsMeta = $this->getPropertyContainer()->getFields('hasMany');
+        if (!empty($incrementalFieldsMeta)) {
+            $incrementalFieldsMeta = array_filter(
+                $incrementalFieldsMeta,
+                function (PropertyContract $property) {
+                    if (!$property->getBehavior() instanceof IntegerBehavior) {
+                        return false;
+                    }
+
+                    if (!empty($property->getBehavior()->isAutoIncrement())) {
+                        return true;
+                    }
+
+                    return false;
+                }
+            );
+        }
+        $this->incrementalFieldsMeta = $incrementalFieldsMeta;
+
+        return $this->incrementalFieldsMeta;
+    }
+
+    /**
+     * getIncrementalFieldsString
+     *
+     * Retorna a relação de propriedades vinculadas a persistencia com incremento
+     *
+     * @return array|boolean
+     */
+    public function getIncrementalFieldsString()
+    {
+        if (!empty($this->incrementalFieldsString)) {
+            return $this->incrementalFieldsString;
+        }
+
+        $incrementalFieldsMeta = $this->getIncrementalFieldsMeta();
+        if (empty($incrementalFieldsMeta)) {
+            return false;
+        }
+
+        $this->incrementalFieldsString = array_map(function (PropertyContract $property) {
+            return $property->getField();
+        }, $incrementalFieldsMeta);
+
+        return $this->incrementalFieldsString;
+    }
+
+    /**
      * getDatabaseIncrementalFieldsString
      *
      * Retorna a relação de meta informação de propriedades vinculadas a persistencia com incremento a partir do
@@ -118,6 +188,8 @@ trait DatabaseFieldsOperations
 
         return $this->databaseIncrementalFieldsMeta;
     }
+
+
 
     /**
      * getDatabaseIncrementalFieldsString
