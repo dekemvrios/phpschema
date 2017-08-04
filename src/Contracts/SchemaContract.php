@@ -109,7 +109,8 @@ interface SchemaContract
     /**
      * getDatabaseIncrementalFieldsString
      *
-     * Retorna a relação de meta informação de propriedades vinculadas a persistencia com incremento a partir do database
+     * Retorna a relação de meta informação de propriedades vinculadas a persistencia com incremento a partir do
+     * database
      *
      * @return PropertyContract[]|boolean
      */
@@ -123,6 +124,25 @@ interface SchemaContract
      * @return array|boolean
      */
     public function getDatabaseIncrementalFieldsString();
+
+    /**
+     * getApplicationIncrementalFieldsString
+     *
+     * Retorna a relação de propriedades vinculadas a persistencia com incremento a partir da aplicação
+     *
+     * @return array|boolean
+     */
+    public function getApplicationIncrementalFieldsString();
+
+    /**
+     * getApplicationIncrementalFieldsMeta
+     *
+     * Retorna a relação de meta informação de propriedades vinculadas a persistencia com incremento a partir da
+     * aplicação
+     *
+     * @return PropertyContract[]|boolean
+     */
+    public function getApplicationIncrementalFieldsMeta();
 
     /**
      * getPropertyEntryByIdentifier

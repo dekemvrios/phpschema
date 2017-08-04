@@ -39,6 +39,17 @@ trait DatabaseFieldsOperations
     private $databaseIncrementalFieldsString;
 
     /**
+     * @var PropertyContract[]
+     */
+    private $applicationIncrementalFieldsMeta;
+
+    /**
+     * @var array
+     */
+    private $applicationIncrementalFieldsString;
+
+
+    /**
      * getPersistentFields
      *
      * Retorna a relação de propriedades do active record com exceção dos do tipo de relacionamento hasMany
@@ -75,7 +86,8 @@ trait DatabaseFieldsOperations
     /**
      * getDatabaseIncrementalFieldsString
      *
-     * Retorna a relação de meta informação de propriedades vinculadas a persistencia com incremento a partir do database
+     * Retorna a relação de meta informação de propriedades vinculadas a persistencia com incremento a partir do
+     * database
      *
      * @return PropertyContract[]|boolean
      */
@@ -130,6 +142,67 @@ trait DatabaseFieldsOperations
         }, $databaseIncrementalFieldsMeta);
 
         return $this->databaseIncrementalFieldsString;
+    }
+
+    /**
+     * getApplicationIncrementalFieldsMeta
+     *
+     * Retorna a relação de meta informação de propriedades vinculadas a persistencia com incremento a partir da
+     * aplicação
+     *
+     * @return PropertyContract[]|boolean
+     */
+    public function getApplicationIncrementalFieldsMeta()
+    {
+        if (!empty($this->applicationIncrementalFieldsMeta)) {
+            return $this->applicationIncrementalFieldsMeta;
+        }
+
+        $applicationIncrementalFieldsMeta = $this->getPropertyContainer()->getFields('hasMany');
+        if (!empty($applicationIncrementalFieldsMeta)) {
+            $applicationIncrementalFieldsMeta = array_filter(
+                $applicationIncrementalFieldsMeta,
+                function (PropertyContract $property) {
+                    if (!$property->getBehavior() instanceof IntegerBehavior) {
+                        return false;
+                    }
+
+                    if ($property->getBehavior()->getIncrementalBehavior() !== 'application') {
+                        return false;
+                    }
+
+                    return true;
+                }
+            );
+        }
+        $this->applicationIncrementalFieldsMeta = $applicationIncrementalFieldsMeta;
+
+        return $this->applicationIncrementalFieldsMeta;
+    }
+
+    /**
+     * getApplicationIncrementalFieldsString
+     *
+     * Retorna a relação de propriedades vinculadas a persistencia com incremento a partir da aplicação
+     *
+     * @return array|boolean
+     */
+    public function getApplicationIncrementalFieldsString()
+    {
+        if (!empty($this->applicationIncrementalFieldsString)) {
+            return $this->applicationIncrementalFieldsString;
+        }
+
+        $applicationIncrementalFieldsMeta = $this->getApplicationIncrementalFieldsMeta();
+        if (empty($applicationIncrementalFieldsMeta)) {
+            return false;
+        }
+
+        $this->applicationIncrementalFieldsString = array_map(function (PropertyContract $property) {
+            return $property->getField();
+        }, $applicationIncrementalFieldsMeta);
+
+        return $this->applicationIncrementalFieldsString;
     }
 
     /**
