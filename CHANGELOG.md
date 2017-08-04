@@ -4,9 +4,9 @@ Todas as modificações relevantes para phpbreaker serão documentadas neste arq
 
 O formato é baseado [Keep a CHANGELOG](http://keepachangelog.com/) e esse projeto adere ao [Semantic Versioning 2.0.0](http://semver.org/).  
 
-## [1.1.0] - 2017-08-09
+## [1.1.0] - 2017-08-04
 
-## Change
+## Changed
 - Extraido operações de schema e implementado através de traits individuais visando organização de código.
 
 ## [1.0.0] - 2017-08-03
