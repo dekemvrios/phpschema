@@ -47,12 +47,14 @@ class IntegerBehavior extends GenericBehavior implements IntegerContract
             ) ? $dados['autoIncrement'] : false
         );
 
-        $instance->setIncrementalBehavior(
-            array_key_exists(
-                'incrementalBehavior',
-                $dados
-            ) ? $dados['incrementalBehavior'] : 'database'
-        );
+        if (!empty($instance->isAutoIncrement())) {
+            $instance->setIncrementalBehavior(
+                array_key_exists(
+                    'incrementalBehavior',
+                    $dados
+                ) ? $dados['incrementalBehavior'] : 'database'
+            );
+        }
 
         return $instance;
     }

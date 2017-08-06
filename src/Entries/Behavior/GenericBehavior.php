@@ -45,6 +45,9 @@ class GenericBehavior implements GenericContract
      */
     public function setRequired($required)
     {
+        if (is_string($required)) {
+            $required = $required === 'true' ? true : false;
+        }
         $this->required = $required;
     }
 
