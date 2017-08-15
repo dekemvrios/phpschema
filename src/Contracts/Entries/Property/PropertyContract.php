@@ -76,4 +76,23 @@ interface PropertyContract
      * @return GenericContract
      */
     public function getBehavior();
+
+
+    /**
+     * getDescription
+     *
+     * Retorna a descrição do campo atribuido ao schema
+     *
+     * @return string
+     */
+    public function getDescription();
+
+    /**
+     * setDescription
+     *
+     * Atribui valor referente a descrição do campo no schema
+     *
+     * @param string $description
+     */
+    public function setDescription($description);
 }

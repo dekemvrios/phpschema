@@ -39,6 +39,11 @@ class Property implements PropertyContract
     private $type;
 
     /**
+     * @var string
+     */
+    private $description;
+
+    /**
      * @var DynamicFunctionContract[]
      */
     private $format;
@@ -134,6 +139,13 @@ class Property implements PropertyContract
                 $format[] = DinamycFunction::make($item);
             }
             $instance->setFormat($format);
+        }
+
+        if (array_key_exists(
+            'description',
+            $dados
+        )) {
+            $instance->setDescription($dados['description']);
         }
 
         if (array_key_exists(
@@ -322,6 +334,30 @@ class Property implements PropertyContract
     public function getBehavior()
     {
         return $this->behavior;
+    }
+
+    /**
+     * getDescription
+     *
+     * Retorna a descrição do campo atribuido ao schema
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * setDescription
+     *
+     * Atribui valor referente a descrição do campo no schema
+     *
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
     }
 
     /**

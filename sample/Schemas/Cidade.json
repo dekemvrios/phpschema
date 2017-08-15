@@ -4,6 +4,7 @@
       "alias": "sNome",
       "type": "string",
       "property": "nome",
+      "description": "Campo que recebe a descricao da propriedade",
       "format": [
         {
           "function": "lowercase"
