@@ -9,6 +9,10 @@
         {
           "function": "lowercase"
         }
+      ],
+      "allowedValues": [
+        "Rio do Sul",
+        "Pouso Redondo"
       ]
     },
     {

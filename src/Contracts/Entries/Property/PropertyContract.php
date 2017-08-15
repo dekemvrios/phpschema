@@ -88,11 +88,11 @@ interface PropertyContract
     public function getDescription();
 
     /**
-     * setDescription
+     * getAllowedValues
      *
-     * Atribui valor referente a descrição do campo no schema
+     * Retorna a relação de valores válidos a serem atribuidos ao respectivo campo
      *
-     * @param string $description
+     * @return array
      */
-    public function setDescription($description);
+    public function getAllowedValues();
 }

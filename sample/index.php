@@ -3,11 +3,12 @@
 require_once '../vendor/autoload.php';
 
 use Solis\Expressive\Schema\Sample\Estado;
+use Solis\Expressive\Schema\Sample\Cidade;
 use Solis\Breaker\Abstractions\TExceptionAbstract;
 
 try {
 
-    $instance = new Estado();
+    $instance = new Cidade();
 
     //echo $instance->schema->toJson();
 

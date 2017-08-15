@@ -59,6 +59,11 @@ class Property implements PropertyContract
     private $behavior;
 
     /**
+     * @var array
+     */
+    private $allowedValues = [];
+
+    /**
      * __construct
      *
      * @param string $alias
@@ -153,6 +158,18 @@ class Property implements PropertyContract
             $dados
         )) {
             $instance->setComposition(Composition::make($dados['composition']));
+        }
+
+        if (array_key_exists(
+            'allowedValues',
+            $dados
+        )) {
+            $allowedValues = !is_array($dados['allowedValues']) ? [$dados['allowedValues']] : $dados['allowedValues'];
+            foreach ($allowedValues as $allowedValue) {
+                if (!is_null($allowedValue)) {
+                    $instance->addIntoAllowedValues($allowedValue);
+                }
+            }
         }
 
         $instance->setField(
@@ -361,6 +378,69 @@ class Property implements PropertyContract
     }
 
     /**
+     * @return array
+     */
+    public function getAllowedValues()
+    {
+        return $this->allowedValues;
+    }
+
+    /**
+     * @param array $allowedValues
+     */
+    public function setAllowedValues($allowedValues)
+    {
+        $this->allowedValues = $allowedValues;
+    }
+
+    /**
+     * Adiciona um valor a relação de valores válidos de acordo com o tipo
+     * atribuido a respectiva entrada de schema
+     *
+     * @param $value
+     *
+     * @return boolean
+     */
+    private function addIntoAllowedValues($value)
+    {
+        if (empty($this->getType())) {
+            return false;
+        }
+
+        if (in_array(
+            $value,
+            $this->allowedValues
+        )) {
+            return false;
+        }
+
+        switch ($this->getType()) {
+            case 'int' :
+                $value = intval($value);
+
+                $this->allowedValues[] = $value;
+
+                return true;
+
+            case 'float' :
+                $value = floatval($value);
+
+                $this->allowedValues[] = $value;
+
+                return true;
+            case 'string' :
+                $value = (string)$value;
+
+                $this->allowedValues[] = $value;
+
+                return true;
+            default:
+
+                return false;
+        }
+    }
+
+    /**
      * toArray
      *
      * Retorna uma repsentação em array do schema
@@ -387,6 +467,10 @@ class Property implements PropertyContract
                 $format[] = $item->toArray();
             }
             $array['format'] = $format;
+        }
+
+        if (!empty($this->getAllowedValues())) {
+            $array['allowedValues'] = $this->getAllowedValues();
         }
 
         if (!empty($this->getComposition())) {
