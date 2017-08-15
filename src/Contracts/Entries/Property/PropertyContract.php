@@ -88,6 +88,13 @@ interface PropertyContract
     public function getDescription();
 
     /**
+     * Retorna o valor default a ser atribuido a propriedade especificada no schema
+     *
+     * @return mixed
+     */
+    public function getDefault();
+
+    /**
      * getAllowedValues
      *
      * Retorna a relação de valores válidos a serem atribuidos ao respectivo campo

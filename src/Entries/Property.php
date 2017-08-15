@@ -64,6 +64,11 @@ class Property implements PropertyContract
     private $allowedValues = [];
 
     /**
+     * @var mixed
+     */
+    private $default;
+
+    /**
      * __construct
      *
      * @param string $alias
@@ -151,6 +156,13 @@ class Property implements PropertyContract
             $dados
         )) {
             $instance->setDescription($dados['description']);
+        }
+
+        if (array_key_exists(
+            'default',
+            $dados
+        )) {
+            $instance->setDefault($dados['default']);
         }
 
         if (array_key_exists(
@@ -391,6 +403,26 @@ class Property implements PropertyContract
     public function setAllowedValues($allowedValues)
     {
         $this->allowedValues = $allowedValues;
+    }
+
+    /**
+     * Retorna o valor default a ser atribuido a propriedade especificada no schema
+     *
+     * @return mixed
+     */
+    public function getDefault()
+    {
+        return $this->default;
+    }
+
+    /**
+     * Atribui o valor default a ser atribuido a propriedade especificada no schema
+     *
+     * @param mixed $default
+     */
+    public function setDefault($default)
+    {
+        $this->default = $default;
     }
 
     /**
