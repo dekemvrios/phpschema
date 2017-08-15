@@ -179,6 +179,14 @@ interface SchemaContract
     );
 
     /**
+     *
+     * Retorna a relacao de meta informações de todas as propriedades que possuem valor default
+     *
+     * @return PropertyContract[]
+     */
+    public function getPropertiesWithDefaultValue();
+
+    /**
      * toArray
      *
      * Retorna uma representação em formato de array associativo do schema

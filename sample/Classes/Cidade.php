@@ -47,10 +47,6 @@ class Cidade
         $this->schema = Schema::make(
             file_get_contents(dirname(dirname(__FILE__)) . "/Schemas/Cidade.json")
         );
-
-        echo $this->schema->toJson();
-
-        exit();
     }
 
     public static function make()

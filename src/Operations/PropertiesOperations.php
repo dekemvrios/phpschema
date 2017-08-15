@@ -13,6 +13,11 @@ trait PropertiesOperations
 {
 
     /**
+     * @var PropertyContract[]
+     */
+    private $propertiesWithDefaultValue = [];
+
+    /**
      * getProperties
      *
      * Retorna a relação de propriedades do active record
@@ -46,5 +51,25 @@ trait PropertiesOperations
         }
 
         return false;
+    }
+
+    /**
+     *
+     * Retorna a relacao de meta informações de todas as propriedades que possuem valor default
+     *
+     * @return PropertyContract[]
+     */
+    public function getPropertiesWithDefaultValue()
+    {
+        if (empty($this->propertiesWithDefaultValue)) {
+            $properties = array_filter($this->getProperties(), function (PropertyContract $property) {
+                return !empty($property->getDefault()) ? true : false;
+            });
+
+            if (!empty($properties)) {
+                $this->propertiesWithDefaultValue = array_values($properties);
+            }
+        }
+        return $this->propertiesWithDefaultValue;
     }
 }

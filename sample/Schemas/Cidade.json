@@ -13,12 +13,14 @@
       "allowedValues": [
         "Rio do Sul",
         "Pouso Redondo"
-      ]
+      ],
+      "default": "Rio do Sul"
     },
     {
       "alias": "iCodigoIbge",
       "type": "int",
-      "property": "codigoIbge"
+      "property": "codigoIbge",
+      "default": 1
     }
   ]
 }

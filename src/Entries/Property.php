@@ -509,6 +509,10 @@ class Property implements PropertyContract
             $array['composition'] = $this->getComposition()->toArray();
         }
 
+        if (!empty($this->getDefault())) {
+            $array['default'] = $this->getDefault();
+        }
+
         return $array;
     }
 }

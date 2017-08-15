@@ -10,9 +10,7 @@ try {
 
     $instance = new Cidade();
 
-    //echo $instance->schema->toJson();
-
-    var_dump($instance->schema->getIncrementalFieldsString());
+    var_dump($instance->schema->getPropertiesWithDefaultValue());
 
 } catch (TExceptionAbstract $exception) {
     echo $exception->toJson();
