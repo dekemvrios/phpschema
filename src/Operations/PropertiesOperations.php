@@ -18,6 +18,11 @@ trait PropertiesOperations
     private $propertiesWithDefaultValue = [];
 
     /**
+     * @var PropertyContract[]
+     */
+    private $propertiesWithNotNullConstraint = [];
+
+    /**
      * getProperties
      *
      * Retorna a relação de propriedades do active record
@@ -71,5 +76,25 @@ trait PropertiesOperations
             }
         }
         return $this->propertiesWithDefaultValue;
+    }
+
+    /**
+     *
+     * Retorna a relacao de meta informações de todas as propriedades que não podem possuir valor nulo
+     *
+     * @return PropertyContract[]
+     */
+    public function getPropertiesWithNotNullConstraint()
+    {
+        if (empty($this->propertiesWithNotNullConstraint)) {
+            $properties = array_filter($this->getProperties(), function (PropertyContract $property) {
+                return !empty($property->getBehavior()->isRequired()) ? true : false;
+            });
+
+            if (!empty($properties)) {
+                $this->propertiesWithNotNullConstraint = array_values($properties);
+            }
+        }
+        return $this->propertiesWithNotNullConstraint;
     }
 }

@@ -187,6 +187,14 @@ interface SchemaContract
     public function getPropertiesWithDefaultValue();
 
     /**
+     *
+     * Retorna a relacao de meta informações de todas as propriedades que não podem possuir valor nulo
+     *
+     * @return PropertyContract[]
+     */
+    public function getPropertiesWithNotNullConstraint();
+
+    /**
      * toArray
      *
      * Retorna uma representação em formato de array associativo do schema
