@@ -2,16 +2,14 @@
 
 namespace Solis\Expressive\Schema;
 
-use Solis\Expressive\Schema\Operations\{
-    PropertiesOperations,
-    ContainerOperations,
-    DatabaseOperations,
-    MetaOperations,
-    ViewOperations
-};
-use Solis\Expressive\Schema\Containers\{
-    DatabaseContainer, PropertyCotainer
-};
+
+use Solis\Expressive\Schema\Operations\PropertiesOperations;
+use Solis\Expressive\Schema\Operations\ContainerOperations;
+use Solis\Expressive\Schema\Operations\DatabaseOperations;
+use Solis\Expressive\Schema\Operations\MetaOperations;
+use Solis\Expressive\Schema\Operations\ViewOperations;
+use Solis\Expressive\Schema\Containers\DatabaseContainer;
+use Solis\Expressive\Schema\Containers\PropertyCotainer;
 use Solis\Expressive\Schema\Contracts\SchemaContract;
 use Solis\Expressive\Schema\Contracts\Entries\Property\ContainerContract as PropertyContainerContract;
 

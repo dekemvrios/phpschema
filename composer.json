@@ -9,7 +9,6 @@
     }
   ],
   "require": {
-    "php": ">=7.0",
     "solis/phpbreaker": "~v1.0"
   },
   "autoload": {
