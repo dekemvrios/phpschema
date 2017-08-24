@@ -39,6 +39,12 @@ class IntegerBehavior extends GenericBehavior implements IntegerContract
                 $dados
             ) ? $dados['required'] : true
         );
+        $instance->setHidden(
+            array_key_exists(
+                'hidden',
+                $dados
+            ) ? $dados['hidden'] : false
+        );
 
         $instance->setAutoIncrement(
             array_key_exists(
