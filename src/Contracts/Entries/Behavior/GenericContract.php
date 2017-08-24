@@ -18,4 +18,13 @@ interface GenericContract
      * @return boolean
      */
     public function isRequired();
+
+    /**
+     * isHidden
+     *
+     * Retorna valor lógico indicando se o registro será ocultado ou não
+     *
+     * @return boolean
+     */
+    public function isHidden();
 }

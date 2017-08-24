@@ -17,6 +17,11 @@ class GenericBehavior implements GenericContract
     private $required;
 
     /**
+     * @var boolean
+     */
+    private $hidden;
+
+    /**
      * make
      *
      * @param array $dados
@@ -31,6 +36,12 @@ class GenericBehavior implements GenericContract
                 'required',
                 $dados
             ) ? $dados['required'] : true
+        );
+        $instance->setHidden(
+            array_key_exists(
+                'hidden',
+                $dados
+            ) ? $dados['hidden'] : false
         );
 
         return $instance;
@@ -52,6 +63,21 @@ class GenericBehavior implements GenericContract
     }
 
     /**
+     * setHidden
+     *
+     * Retorna valor lógico indicando se o registro será ocultado ou não
+     *
+     * @param boolean $hidden
+     */
+    public function setHidden($hidden)
+    {
+        if (is_string($hidden)) {
+            $hidden = $hidden === 'true' ? true : false;
+        }
+        $this->hidden = $hidden;
+    }
+
+    /**
      * isRequired
      *
      * Retorna valor lógico indicando a obrigatóriedade de utilização do registro
@@ -61,6 +87,18 @@ class GenericBehavior implements GenericContract
     public function isRequired()
     {
         return $this->required;
+    }
+
+    /**
+     * isHidden
+     *
+     * Retorna valor lógico indicando se o registro será ocultado ou não
+     *
+     * @return boolean
+     */
+    public function isHidden()
+    {
+        return $this->hidden;
     }
 
     /**
@@ -74,6 +112,7 @@ class GenericBehavior implements GenericContract
     {
         return [
             'required' => $this->isRequired(),
+            'hidden'   => $this->isHidden(),
         ];
     }
 }
