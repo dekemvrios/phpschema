@@ -113,21 +113,23 @@ class PropertyCotainer implements PropertyContainerContract
      * @return array|bool
      */
     public function getMetaForRelationshipType(
-        $type = null
+            $type = null
     ) {
         $meta = array_filter($this->getProperties(), function (PropertyContract $property) use ($type) {
-            if (!empty($property->getComposition())) {
-                if (
-                    !empty($type) &&
-                    $property->getComposition()->getRelationship()->getType() != $type
-                ) {
-                    return false;
-                }
+            if (empty($property->getComposition())) {
+                return false;
+            }
+            if ($property->getType() === 'json') {
+                return false;
+            }
+            if (empty($type)) {
                 return true;
             }
-            return false;
+            if ($property->getComposition()->getRelationship()->getType() != $type) {
+                return false;
+            }
+            return true;
         });
-
         return !empty($meta) ? $meta : false;
     }
 
@@ -162,20 +164,24 @@ class PropertyCotainer implements PropertyContainerContract
      * @return PropertyContract[]|bool
      */
     public function getFields(
-        $exceptRelationshipType = null
+            $exceptRelationshipType = null
     ) {
         $meta = array_filter($this->getProperties(), function (PropertyContract $property) use ($exceptRelationshipType){
-            if (!empty($exceptRelationshipType)) {
-                if (
-                    !empty($property->getComposition()) &&
-                    $property->getComposition()->getRelationship()->getType() === $exceptRelationshipType
-                ) {
-                    return false;
-                }
+            if (empty($property->getComposition())) {
+                return true;
             }
-            return $property;
-        });
+            if ($property->getType() === 'json') {
+                return true;
+            }
+            if (empty($exceptRelationshipType)) {
+                return true;
+            }
+            if ($property->getComposition()->getRelationship()->getType() === $exceptRelationshipType) {
+                return false;
+            }
 
+            return true;
+        });
         return !empty($meta) ? array_values($meta) : false;
     }
 }
