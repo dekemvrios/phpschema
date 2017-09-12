@@ -24,45 +24,29 @@ class IntegerBehavior extends GenericBehavior implements IntegerContract
     private $incrementalBehavior;
 
     /**
-     * make
+     * IntegerBehavior constructor.
      *
      * @param array $dados
-     *
-     * @return GenericContract
      */
-    public static function make($dados = [])
+    public function __construct(array $dados = [])
     {
-        $instance = new static();
-        $instance->setRequired(
-            array_key_exists(
-                'required',
-                $dados
-            ) ? $dados['required'] : true
-        );
-        $instance->setHidden(
-            array_key_exists(
-                'hidden',
-                $dados
-            ) ? $dados['hidden'] : false
-        );
+        parent::__construct($dados);
 
-        $instance->setAutoIncrement(
+        $this->setAutoIncrement(
             array_key_exists(
                 'autoIncrement',
                 $dados
             ) ? $dados['autoIncrement'] : false
         );
 
-        if (!empty($instance->isAutoIncrement())) {
-            $instance->setIncrementalBehavior(
+        if (!empty($this->isAutoIncrement())) {
+            $this->setIncrementalBehavior(
                 array_key_exists(
                     'incrementalBehavior',
                     $dados
                 ) ? $dados['incrementalBehavior'] : 'database'
             );
         }
-
-        return $instance;
     }
 
     /**

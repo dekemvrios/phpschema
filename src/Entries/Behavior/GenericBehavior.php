@@ -3,6 +3,7 @@
 namespace Solis\Expressive\Schema\Entries\Behavior;
 
 use Solis\Expressive\Schema\Contracts\Entries\Behavior\GenericContract;
+use Solis\Expressive\Schema\Contracts\Entries\Behavior\WhenReplicateContract;
 
 /**
  * Class GenericBehavior
@@ -22,29 +23,32 @@ class GenericBehavior implements GenericContract
     private $hidden;
 
     /**
-     * make
+     * @var WhenReplicateContract
+     */
+    private $whenReplicate;
+
+    /**
+     * GenericBehavior constructor.
      *
      * @param array $dados
-     *
-     * @return GenericContract
      */
-    public static function make($dados = [])
+    public function __construct($dados = [])
     {
-        $instance = new static();
-        $instance->setRequired(
+        $this->setRequired(
             array_key_exists(
                 'required',
                 $dados
             ) ? $dados['required'] : true
         );
-        $instance->setHidden(
+        $this->setHidden(
             array_key_exists(
                 'hidden',
                 $dados
             ) ? $dados['hidden'] : false
         );
-
-        return $instance;
+        $this->setWhenReplicate(
+            new WhenReplicate($dados['whenReplicate'] ?? [])
+        );
     }
 
     /**
@@ -102,6 +106,22 @@ class GenericBehavior implements GenericContract
     }
 
     /**
+     * @return WhenReplicateContract
+     */
+    public function getWhenReplicate()
+    {
+        return $this->whenReplicate;
+    }
+
+    /**
+     * @param WhenReplicateContract $whenReplicate
+     */
+    public function setWhenReplicate($whenReplicate)
+    {
+        $this->whenReplicate = $whenReplicate;
+    }
+
+    /**
      * toArray
      *
      * Retorna representação em array do registro
@@ -111,8 +131,9 @@ class GenericBehavior implements GenericContract
     public function toArray()
     {
         return [
-            'required' => $this->isRequired(),
-            'hidden'   => $this->isHidden(),
+            'required'      => $this->isRequired(),
+            'hidden'        => $this->isHidden(),
+            'whenReplicate' => $this->getWhenReplicate()->toArray(),
         ];
     }
 }

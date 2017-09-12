@@ -29,12 +29,9 @@ class Behavior
 
         switch ($dados['type']) {
             case 'int':
-                return IntegerBehavior::make(
-                    $behavior
-                );
-
-            default:
-                return GenericBehavior::make($behavior);
+                return new IntegerBehavior($behavior);
         }
+
+        return new GenericBehavior($behavior);
     }
 }

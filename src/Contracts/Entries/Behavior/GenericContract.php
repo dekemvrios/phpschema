@@ -27,4 +27,9 @@ interface GenericContract
      * @return boolean
      */
     public function isHidden();
+
+    /**
+     * @return WhenReplicateContract
+     */
+    public function getWhenReplicate();
 }
