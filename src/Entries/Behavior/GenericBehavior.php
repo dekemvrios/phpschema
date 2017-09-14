@@ -46,9 +46,10 @@ class GenericBehavior implements GenericContract
                 $dados
             ) ? $dados['hidden'] : false
         );
-        $this->setWhenReplicate(
-            new WhenReplicate($dados['whenReplicate'] ?? [])
-        );
+
+        $whenReplicate = array_key_exists('whenReplicate', $dados) ? $dados['whenReplicate'] : [];
+
+        $this->setWhenReplicate($whenReplicate);
     }
 
     /**

@@ -35,13 +35,15 @@ class WhenReplicate implements WhenReplicateContract
      */
     public function __construct($dados = [])
     {
-        $action = $dados['action'] ?? 'keep';
+        $action = array_key_exists('action', $dados) ? $dados['action'] : 'keep';
 
         if (in_array($action, $this->validActions)) {
             $this->setAction($action);
         }
 
-        $this->setValue($dados['value'] ?? null);
+        $this->setValue(
+                array_key_exists('value', $dados) ? $dados['value'] : null
+        );
     }
 
     /**
