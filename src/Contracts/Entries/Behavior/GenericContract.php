@@ -32,4 +32,9 @@ interface GenericContract
      * @return WhenReplicateContract
      */
     public function getWhenReplicate();
+
+    /**
+     * @return WhenPatchContract
+     */
+    public function getWhenPatch();
 }

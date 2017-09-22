@@ -3,6 +3,7 @@
 namespace Solis\Expressive\Schema\Entries\Behavior;
 
 use Solis\Expressive\Schema\Contracts\Entries\Behavior\GenericContract;
+use Solis\Expressive\Schema\Contracts\Entries\Behavior\WhenPatchContract;
 use Solis\Expressive\Schema\Contracts\Entries\Behavior\WhenReplicateContract;
 
 /**
@@ -28,6 +29,11 @@ class GenericBehavior implements GenericContract
     private $whenReplicate;
 
     /**
+     * @var WhenPatchContract
+     */
+    private $whenPatch;
+
+    /**
      * GenericBehavior constructor.
      *
      * @param array $dados
@@ -49,8 +55,13 @@ class GenericBehavior implements GenericContract
 
         $whenReplicate = array_key_exists('whenReplicate', $dados) ? $dados['whenReplicate'] : [];
 
+        $whenPatch = array_key_exists('whenPatch', $dados) ? $dados['whenPatch'] : [];
+
         $this->setWhenReplicate(
                 new WhenReplicate($whenReplicate)
+        );
+        $this->setWhenPatch(
+                new WhenPatch($whenPatch)
         );
     }
 
@@ -125,6 +136,22 @@ class GenericBehavior implements GenericContract
     }
 
     /**
+     * @return WhenPatchContract
+     */
+    public function getWhenPatch()
+    {
+        return $this->whenPatch;
+    }
+
+    /**
+     * @param WhenPatchContract $whenPatch
+     */
+    public function setWhenPatch($whenPatch)
+    {
+        $this->whenReplicate = $whenPatch;
+    }
+
+    /**
      * toArray
      *
      * Retorna representação em array do registro
@@ -137,6 +164,7 @@ class GenericBehavior implements GenericContract
             'required'      => $this->isRequired(),
             'hidden'        => $this->isHidden(),
             'whenReplicate' => $this->getWhenReplicate()->toArray(),
+            'whenPatch'     => $this->getWhenPatch()->toArray(),
         ];
     }
 }
