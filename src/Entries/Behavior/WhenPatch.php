@@ -21,7 +21,7 @@ class WhenPatch implements WhenPatchContract
     /**
      * @var array
      */
-    private $validActions = ['keep', 'clean'];
+    private $validActions = ['keep', 'update'];
 
     /**
      * WhenReplicate constructor.
@@ -30,11 +30,11 @@ class WhenPatch implements WhenPatchContract
      */
     public function __construct($dados = [])
     {
-        $action = array_key_exists('action', $dados) ? $dados['action'] : 'clean';
+        $action = array_key_exists('action', $dados) ? $dados['action'] : 'update';
 
-        if (in_array($action, $this->validActions)) {
-            $this->setAction($action);
-        }
+        $action = in_array($action, $this->validActions) ? $action : 'update';
+
+        $this->setAction($action);
     }
 
     /**

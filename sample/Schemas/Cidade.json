@@ -20,7 +20,12 @@
       "alias": "iCodigoIbge",
       "type": "int",
       "property": "codigoIbge",
-      "default": 1
+      "default": 1,
+      "behavior": {
+        "whenPatch": {
+          "action": "keep"
+        }
+      }
     }
   ]
 }

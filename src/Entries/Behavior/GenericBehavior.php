@@ -148,7 +148,7 @@ class GenericBehavior implements GenericContract
      */
     public function setWhenPatch($whenPatch)
     {
-        $this->whenReplicate = $whenPatch;
+        $this->whenPatch = $whenPatch;
     }
 
     /**
