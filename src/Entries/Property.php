@@ -76,9 +76,9 @@ class Property implements PropertyContract
      * @param string $type
      */
     protected function __construct(
-        $alias,
-        $property,
-        $type = null
+            $alias,
+            $property,
+            $type = null
     ) {
         $this->setAlias($alias);
         $this->setProperty($property);
@@ -96,53 +96,53 @@ class Property implements PropertyContract
     public static function make($dados)
     {
         if (!array_key_exists(
-            'property',
-            $dados
+                'property',
+                $dados
         )
         ) {
             throw new SchemaException(
-                __CLASS__,
-                __METHOD__,
-                "'property' field has not been found for defining schema entry",
-                400
+                    __CLASS__,
+                    __METHOD__,
+                    "'property' field has not been found for defining schema entry",
+                    400
             );
         }
 
         if (!array_key_exists(
-            'alias',
-            $dados
+                'alias',
+                $dados
         )
         ) {
             throw new SchemaException(
-                __CLASS__,
-                __METHOD__,
-                "'alias' field has not been found for defining schema entry ",
-                400
+                    __CLASS__,
+                    __METHOD__,
+                    "'alias' field has not been found for defining schema entry ",
+                    400
             );
         }
 
         if (!array_key_exists(
-            'type',
-            $dados
+                'type',
+                $dados
         )
         ) {
             throw new SchemaException(
-                __CLASS__,
-                __METHOD__,
-                "'type' field has not been found for defining schema entry ",
-                400
+                    __CLASS__,
+                    __METHOD__,
+                    "'type' field has not been found for defining schema entry ",
+                    400
             );
         }
 
         $instance = new self(
-            $dados['alias'],
-            $dados['property'],
-            $dados['type']
+                $dados['alias'],
+                $dados['property'],
+                $dados['type']
         );
 
         if (array_key_exists(
-            'format',
-            $dados
+                'format',
+                $dados
         )) {
             $format = [];
             foreach ($dados['format'] as $item) {
@@ -152,29 +152,29 @@ class Property implements PropertyContract
         }
 
         if (array_key_exists(
-            'description',
-            $dados
+                'description',
+                $dados
         )) {
             $instance->setDescription($dados['description']);
         }
 
         if (array_key_exists(
-            'default',
-            $dados
+                'default',
+                $dados
         )) {
             $instance->setDefault($dados['default']);
         }
 
         if (array_key_exists(
-            'composition',
-            $dados
+                'composition',
+                $dados
         )) {
             $instance->setComposition(Composition::make($dados['composition']));
         }
 
         if (array_key_exists(
-            'allowedValues',
-            $dados
+                'allowedValues',
+                $dados
         )) {
             $allowedValues = !is_array($dados['allowedValues']) ? [$dados['allowedValues']] : $dados['allowedValues'];
             foreach ($allowedValues as $allowedValue) {
@@ -185,10 +185,10 @@ class Property implements PropertyContract
         }
 
         $instance->setField(
-            array_key_exists(
-                'field',
-                $dados
-            ) ? $dados['field'] : $dados['property']
+                array_key_exists(
+                        'field',
+                        $dados
+                ) ? $dados['field'] : $dados['property']
         );
 
         $instance->setBehavior(Behavior::make($dados));
@@ -440,8 +440,8 @@ class Property implements PropertyContract
         }
 
         if (in_array(
-            $value,
-            $this->allowedValues
+                $value,
+                $this->allowedValues
         )) {
             return false;
         }
@@ -483,9 +483,9 @@ class Property implements PropertyContract
     {
         $array = [];
 
-        $array['alias'] = $this->getAlias();
+        $array['alias']    = $this->getAlias();
         $array['property'] = $this->getProperty();
-        $array['field'] = $this->getField();
+        $array['field']    = $this->getField();
 
         if (!empty($this->getType())) {
             $array['type'] = $this->getType();
@@ -514,5 +514,93 @@ class Property implements PropertyContract
         }
 
         return $array;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasSharedFields()
+    {
+        return boolval($this->getComposition()->getRelationship()->getSharedFields());
+    }
+
+    /**
+     * @return array|string
+     */
+    public function getSharedFields()
+    {
+        return $this->getComposition()->getRelationship()->getSharedFields();
+    }
+
+    /**
+     * @return string
+     */
+    public function getCompositionClass()
+    {
+        return $this->getComposition()->getClass();
+    }
+
+    /**
+     * @return string
+     */
+    public function getCompositionField()
+    {
+        return $this->getComposition()->getRelationship()->getSource()->getField();
+    }
+
+    /**
+     * @return string
+     */
+    public function getCompositionRefers()
+    {
+        return $this->getComposition()->getRelationship()->getSource()->getRefers();
+    }
+
+    /**
+     * @return string
+     */
+    public function getCompositionType()
+    {
+        return $this->getComposition()->getRelationship()->getType();
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasReplicateBehavior()
+    {
+        return boolval($this->getBehavior()->getWhenReplicate());
+    }
+
+    /**
+     * @return string
+     */
+    public function getWhenReplicateAction()
+    {
+        return $this->getBehavior()->getWhenReplicate()->getAction();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWhenReplicateStaticValue()
+    {
+        return $this->getBehavior()->getWhenReplicate()->getValue();
+    }
+
+    /**
+     * @return string
+     */
+    public function getWhenPatchAction()
+    {
+        return $this->getBehavior()->getWhenPatch()->getAction();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRequired()
+    {
+        return $this->getBehavior()->isRequired();
     }
 }

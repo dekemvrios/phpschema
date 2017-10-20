@@ -15,37 +15,21 @@ interface PropertyContract
 {
 
     /**
-     * getAlias
-     *
-     * Identificador de índice de array de dados fornecido como argumento para método attach para instanciar model
-     *
      * @return string
      */
     public function getAlias();
 
     /**
-     * getProperty
-     *
-     * Nome da propriedade presente na classe a ser instanciada
-     *
      * @return string
      */
     public function getProperty();
 
     /**
-     * getField
-     *
-     * Nome do campo na persistência qual reflete a propriedade na respectiva classe
-     *
      * @return string
      */
     public function getField();
 
     /**
-     * getType
-     *
-     * Tipo de dado da propriedade
-     *
      * @return string
      */
     public function getType();
@@ -102,4 +86,59 @@ interface PropertyContract
      * @return array
      */
     public function getAllowedValues();
+
+    /**
+     * @return bool
+     */
+    public function hasSharedFields();
+
+    /**
+     * @return array|string
+     */
+    public function getSharedFields();
+
+    /**
+     * @return string
+     */
+    public function getCompositionClass();
+
+    /**
+     * @return string
+     */
+    public function getCompositionField();
+
+    /**
+     * @return string
+     */
+    public function getCompositionRefers();
+
+    /**
+     * @return string
+     */
+    public function getCompositionType();
+
+    /**
+     * @return bool
+     */
+    public function hasReplicateBehavior();
+
+    /**
+     * @return string
+     */
+    public function getWhenReplicateAction();
+
+    /**
+     * @return mixed
+     */
+    public function getWhenReplicateStaticValue();
+
+    /**
+     * @return string
+     */
+    public function getWhenPatchAction();
+
+    /**
+     * @return bool
+     */
+    public function isRequired();
 }
