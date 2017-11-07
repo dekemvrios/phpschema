@@ -30,6 +30,11 @@ class Relationship implements RelationshipContract
     private $sharedFields;
 
     /**
+     * @var string|array
+     */
+    private $commonFields;
+
+    /**
      * RelationshipEntryAbstract constructor.
      *
      * @param string         $type
@@ -89,6 +94,15 @@ class Relationship implements RelationshipContract
         )) {
             $instance->setSharedFields(
                 !is_array($dados['sharedFields']) ? [$dados['sharedFields']] : $dados['sharedFields']
+            );
+        }
+
+        if (array_key_exists(
+            'commonFields',
+            $dados
+        )) {
+            $instance->setCommonFields(
+                !is_array($dados['commonFields']) ? [$dados['commonFields']] : $dados['commonFields']
             );
         }
 
@@ -168,6 +182,30 @@ class Relationship implements RelationshipContract
     }
 
     /**
+     * getCommonFields
+     *
+     * Retorna relação de campos compartilhados entre active record composição
+     *
+     * @return array|string
+     */
+    public function getCommonFields()
+    {
+        return $this->commonFields;
+    }
+
+    /**
+     * getCommonFields
+     *
+     * Atribui relação de campos compartilhados entre active record composição
+     *
+     * @param array|string $commonFields
+     */
+    public function setCommonFields($commonFields)
+    {
+        $this->commonFields = $commonFields;
+    }
+
+    /**
      * toArray
      *
      * Retorna representação em array do registro
@@ -183,6 +221,10 @@ class Relationship implements RelationshipContract
 
         if (!empty($this->getSharedFields())) {
             $array['sharedFields'] = $this->getSharedFields();
+        }
+
+        if (!empty($this->getCommonFields())) {
+            $array['commonFields'] = $this->getCommonFields();
         }
 
         return $array;

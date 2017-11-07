@@ -36,4 +36,13 @@ interface RelationshipContract
      * @return string|array
      */
     public function getSharedFields();
+
+    /**
+     * getCommonFields
+     *
+     * Retorna relação de campos compartilhados entre active record composição
+     *
+     * @return array|string
+     */
+    public function getCommonFields();
 }

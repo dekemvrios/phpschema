@@ -94,6 +94,10 @@
           "sharedFields": [
             "empcodigo",
             "filcodigo"
+          ],
+          "commonFields": [
+            "observacao",
+            "anotacao"
           ]
         }
       }
