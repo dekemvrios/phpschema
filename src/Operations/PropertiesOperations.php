@@ -66,12 +66,12 @@ trait PropertiesOperations
      */
     public function getPropertiesWithDefaultValue()
     {
-        if (empty($this->propertiesWithDefaultValue)) {
+        if (!$this->propertiesWithDefaultValue) {
             $properties = array_filter($this->getProperties(), function (PropertyContract $property) {
-                return !empty($property->getDefault()) ? true : false;
+                return !is_null($property->getDefault());
             });
 
-            if (!empty($properties)) {
+            if ($properties) {
                 $this->propertiesWithDefaultValue = array_values($properties);
             }
         }
