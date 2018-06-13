@@ -24,6 +24,11 @@ class GenericBehavior implements GenericContract
     private $hidden;
 
     /**
+     * @var boolean
+     */
+    private $persistent;
+
+    /**
      * @var WhenReplicateContract
      */
     private $whenReplicate;
@@ -52,16 +57,22 @@ class GenericBehavior implements GenericContract
                 $dados
             ) ? $dados['hidden'] : false
         );
+        $this->setPersistent(
+            array_key_exists(
+                'persistent',
+                $dados
+            ) ? $dados['persistent'] : true
+        );
 
         $whenReplicate = array_key_exists('whenReplicate', $dados) ? $dados['whenReplicate'] : [];
 
         $whenPatch = array_key_exists('whenPatch', $dados) ? $dados['whenPatch'] : [];
 
         $this->setWhenReplicate(
-                new WhenReplicate($whenReplicate)
+            new WhenReplicate($whenReplicate)
         );
         $this->setWhenPatch(
-                new WhenPatch($whenPatch)
+            new WhenPatch($whenPatch)
         );
     }
 
@@ -96,6 +107,21 @@ class GenericBehavior implements GenericContract
     }
 
     /**
+     * setPersistent
+     *
+     * Retorna valor lógico indicando se o registro será persistido ou não
+     *
+     * @param boolean $persists
+     */
+    public function setPersistent($persists)
+    {
+        if (is_string($persists)) {
+            $persists = $persists === 'true' ? true : false;
+        }
+        $this->persistent = $persists;
+    }
+
+    /**
      * isRequired
      *
      * Retorna valor lógico indicando a obrigatóriedade de utilização do registro
@@ -117,6 +143,18 @@ class GenericBehavior implements GenericContract
     public function isHidden()
     {
         return $this->hidden;
+    }
+
+    /**
+     * isPersistent
+     *
+     * Retorna valor lógico indicando se o registro será persistido ou não
+     *
+     * @return boolean
+     */
+    public function isPersistent()
+    {
+        return $this->persistent;
     }
 
     /**
@@ -163,6 +201,7 @@ class GenericBehavior implements GenericContract
         return [
             'required'      => $this->isRequired(),
             'hidden'        => $this->isHidden(),
+            'persistent'    => $this->isPersistent(),
             'whenReplicate' => $this->getWhenReplicate()->toArray(),
             'whenPatch'     => $this->getWhenPatch()->toArray(),
         ];

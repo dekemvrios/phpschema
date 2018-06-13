@@ -29,6 +29,15 @@ interface GenericContract
     public function isHidden();
 
     /**
+     * isPersistent
+     *
+     * Retorna valor lógico indicando se o registro será persistido ou não
+     *
+     * @return boolean
+     */
+    public function isPersistent();
+
+    /**
      * @return WhenReplicateContract
      */
     public function getWhenReplicate();
