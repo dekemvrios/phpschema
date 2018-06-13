@@ -75,6 +75,10 @@ trait DatabaseFieldsOperations
                 $persistentFields = array_filter(
                     $persistentFields,
                     function (PropertyContract $property) {
+                        if (!$property->getBehavior()->isPersistent()) {
+                            return false;
+                        }
+
                         if (!$property->getBehavior() instanceof IntegerBehavior) {
                             return true;
                         }
@@ -111,6 +115,10 @@ trait DatabaseFieldsOperations
             $incrementalFieldsMeta = array_filter(
                 $incrementalFieldsMeta,
                 function (PropertyContract $property) {
+                    if (!$property->getBehavior()->isPersistent()) {
+                        return false;
+                    }
+
                     if (!$property->getBehavior() instanceof IntegerBehavior) {
                         return false;
                     }
@@ -172,6 +180,10 @@ trait DatabaseFieldsOperations
             $databaseIncrementalFieldsMeta = array_filter(
                 $databaseIncrementalFieldsMeta,
                 function (PropertyContract $property) {
+                    if (!$property->getBehavior()->isPersistent()) {
+                        return false;
+                    }
+
                     if (!$property->getBehavior() instanceof IntegerBehavior) {
                         return false;
                     }
@@ -235,6 +247,10 @@ trait DatabaseFieldsOperations
             $applicationIncrementalFieldsMeta = array_filter(
                 $applicationIncrementalFieldsMeta,
                 function (PropertyContract $property) {
+                    if (!$property->getBehavior()->isPersistent()) {
+                        return false;
+                    }
+
                     if (!$property->getBehavior() instanceof IntegerBehavior) {
                         return false;
                     }
@@ -290,7 +306,13 @@ trait DatabaseFieldsOperations
             return $this->searchableFieldsMeta;
         }
 
-        $this->searchableFieldsMeta = $this->getPropertyContainer()->getFields('hasMany');
+        if ($searchableFieldsMeta = $this->getPropertyContainer()->getFields('hasMany')) {
+
+            $searchableFieldsMeta = array_filter($searchableFieldsMeta, function (PropertyContract $property) {
+                return $property->getBehavior()->isPersistent();
+            });
+        }
+        $this->searchableFieldsMeta = $searchableFieldsMeta;
 
         return $this->searchableFieldsMeta;
     }
